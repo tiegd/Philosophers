@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/12 10:01:33 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/12 13:29:17 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -g3
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -g3 -pthread
 
 INCLUDE = inc
 

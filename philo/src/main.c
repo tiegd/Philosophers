@@ -6,32 +6,33 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/12 09:50:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:30:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
+#include "philo.h"
 #include <stdio.h>
 
 int main(int ac, char **av)
 {
-	(void)av;
-	if (ac < 4)
+	t_common 	common;
+	t_fork		**tab_fork;
+
+	if (ac >= 5 && ac <= 6)
 	{
-		printf("Too few argumens\n");
-		return (1);
+		if (ft_strcmp(av[1], "0\0") == 0 || ft_strcmp(av[1], "1\0") == 0)
+		{
+			printf("philo 1 died\n");
+			return (0);
+		}
+		common = init_common(ac, av);
+		tab_fork = init_forks(common);
+		fill_args(ac, av, common);
 	}
-	if (ac == 4)
+	else
 	{
-		printf("No option of numeber_of_time_each_philosopher_must_eat\n");
-	}
-	if (ac == 5)
-	{
-		printf("Option of numeber_of_time_each_philosopher_must_eat\n");
-	}
-	if (ac > 5)
-	{
-		printf("To many arguments\n");
+		printf("Wrong number of arguments\n");
 		return (1);
 	}
 	return (0);
