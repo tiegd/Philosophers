@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/12 17:35:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:06:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_common	init_common(int ac, char **av)
 {
 	t_common	common;
 	
-	pthread_mutex_init(&common.nb_philo, NULL);
 	common.nb_philo = ft_atoi(av[1]);
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
@@ -29,15 +28,22 @@ t_common	init_common(int ac, char **av)
 	return (common);
 }
 
-t_fork	**init_forks(t_common common)
+t_fork	*init_forks(t_common common)
 {
 	int		i;
-    t_fork	**tab_fork;
+	int		j;
+    t_fork	*tab_fork;
 
 	i = 1;
+	j = 0;
 	tab_fork = malloc((common.nb_philo + 1) * sizeof(t_fork));
 	while (i <= common.nb_philo)
 	{
-		
+		pthread_mutex_init(&tab_fork[j].fork, NULL);
+		tab_fork[j].id_fork = i;
+		tab_fork[j].avalable = 0;
+		i++;
+		j++;
 	}
+	return (tab_fork);
 }

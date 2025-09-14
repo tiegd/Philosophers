@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/12 17:30:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:09:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int main(int ac, char **av)
 {
 	t_common 	common;
-	t_fork		**tab_fork;
+	t_fork		*tab_fork;
 
 	if (ac >= 5 && ac <= 6)
 	{
@@ -28,12 +28,13 @@ int main(int ac, char **av)
 		}
 		common = init_common(ac, av);
 		tab_fork = init_forks(common);
-		fill_args(ac, av, common);
+		// fill_args(ac, av, common);
 	}
 	else
 	{
 		printf("Wrong number of arguments\n");
 		return (1);
 	}
+	free_forks(tab_fork);
 	return (0);
 }
