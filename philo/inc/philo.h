@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/14 18:09:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:45:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int			ft_atoi(const char *nptr);
 t_common	init_common(int ac, char **av);
 t_fork		*init_forks(t_common common);
 void		free_forks(t_fork *fork);
+void		print_tab_fork(t_fork *tab_fork, t_common common);
 
 #endif

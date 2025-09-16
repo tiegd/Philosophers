@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/14 18:10:09 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/16 11:46:13 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	main.c				\
 		init_struct.c		\
 		philo_utils.c		\
 		clean.c				\
+		print_test.c		\
 
 OBJ = $(SRC: .c=.o)
 OBJ := $(addprefix $(BIN), $(SRC:.c=.o))

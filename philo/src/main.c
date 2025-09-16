@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/14 18:09:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:28:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int main(int ac, char **av)
 		printf("Wrong number of arguments\n");
 		return (1);
 	}
-	free_forks(tab_fork);
+	// free_forks(&tab_fork);
+	print_tab_fork(tab_fork, common);
+	free(tab_fork);
 	return (0);
 }

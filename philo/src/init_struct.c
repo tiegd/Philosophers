@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/14 18:06:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:28:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <stdio.h>
 
 t_common	init_common(int ac, char **av)
 {
@@ -42,6 +43,7 @@ t_fork	*init_forks(t_common common)
 		pthread_mutex_init(&tab_fork[j].fork, NULL);
 		tab_fork[j].id_fork = i;
 		tab_fork[j].avalable = 0;
+		// printf("tab_fork[%d].id_fork = %d\n", j, tab_fork[j].id_fork);
 		i++;
 		j++;
 	}
