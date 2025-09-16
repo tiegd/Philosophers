@@ -6,21 +6,11 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/14 18:12:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:49:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-// void	free_forks(t_fork *fork)
-// {
-// 	int	i;
 
-// 	i = 0;
-// 	while (fork[i] != NULL)
-// 	{
-// 		free(fork[i]);
-// 		i++;
-// 	}
-// }

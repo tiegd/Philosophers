@@ -6,18 +6,20 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/16 12:28:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:13:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 t_common	init_common(int ac, char **av)
 {
 	t_common	common;
-	
+
+	pthread_mutex_init(&common.common_mutex, NULL); //for lock common.died
 	common.nb_philo = ft_atoi(av[1]);
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
@@ -37,10 +39,12 @@ t_fork	*init_forks(t_common common)
 
 	i = 1;
 	j = 0;
-	tab_fork = malloc((common.nb_philo + 1) * sizeof(t_fork));
+	tab_fork = malloc(common.nb_philo * sizeof(t_fork));
+	// if (!tab_fork)
+	// 	return (NULL);
 	while (i <= common.nb_philo)
 	{
-		pthread_mutex_init(&tab_fork[j].fork, NULL);
+		pthread_mutex_init(&tab_fork[j].fork_mutex, NULL);
 		tab_fork[j].id_fork = i;
 		tab_fork[j].avalable = 0;
 		// printf("tab_fork[%d].id_fork = %d\n", j, tab_fork[j].id_fork);
@@ -48,4 +52,33 @@ t_fork	*init_forks(t_common common)
 		j++;
 	}
 	return (tab_fork);
+}
+
+t_philo	*init_philos(t_common common, t_fork *tab_fork)
+{
+	t_philo	*tab_philo;
+	int		i;
+	// int		j;
+
+	i = 0;
+	// j = 1;
+	tab_philo = malloc(common.nb_philo * sizeof(t_philo));
+	// if (!tab_philo)
+	// 	return (NULL);
+	while (i <= common.nb_philo - 1)
+	{
+		tab_philo[i].common = &common;
+		tab_philo[i].left_fork = &tab_fork[i];
+		if (i != 0)
+			tab_philo[i].right_fork = &tab_fork[i - 1];
+		if (i == 0)
+			tab_philo[i].right_fork = &tab_fork[common.nb_philo - 1];
+		tab_philo[i].philo_id = i + 1;
+		tab_philo[i].is_sleeping = false;
+		tab_philo[i].is_died = false;
+		tab_philo[i].is_thinking = false;
+		tab_philo[i].is_died = false;
+		i++;
+	}
+	return (tab_philo);
 }
