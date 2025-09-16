@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/16 14:59:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:51:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct	s_philo
 {
 	pthread_t		tid;
 	t_common	*common;
-	t_fork		*left_fork; //nb_philo - 1
-	t_fork		*right_fork; //nb_philo + 1
+	t_fork		*left_fork; //nb_philo + 1
+	t_fork		*right_fork; //nb_philo
 	int			philo_id;
 	bool		is_sleeping;
 	bool		is_eating;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/16 15:14:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 21:16:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 #include "philo.h"
 #include <stdio.h>
 
-// void	*thread_routine(void *data)
-// {
-	
-// }
+void	*routine(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	printf("philo.philo_id = %d\n", philo->philo_id);
+	printf("zizi\n");
+	return (NULL);
+}
 
 int	check_nb_philo(char *s)
 {
@@ -39,7 +44,9 @@ int main(int ac, char **av)
 	t_common 	common;
 	t_fork		*tab_fork;
 	t_philo		*tab_philo;
+	int			i;
 
+	i = 0;
 	if (ac >= 5 && ac <= 6)
 	{
 		if (!check_nb_philo(av[1]))
@@ -56,11 +63,12 @@ int main(int ac, char **av)
 	}
 	// free_forks(&tab_fork);
 	// print_tab_fork(tab_fork, common);
-	print_tab_philo(tab_philo, common);
-	// while (i <= common.nb_philo - 1)
-	// {
-	// 	pthread_creat(&tab_philo[i].tid);
-	// }
+	// print_tab_philo(tab_philo, common);
+	while (i <= common.nb_philo - 1)
+	{
+		pthread_create(&tab_philo[i].tid, NULL, &routine, &tab_philo[i]);
+		i++;
+	}
 	free(tab_fork);
 	free(tab_philo);
 	return (0);
