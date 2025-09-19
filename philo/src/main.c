@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/19 14:45:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:52:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-void	*routine(void *data)
+void	wait_launch(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)data;
 	pthread_mutex_lock(&philo->common->common_mutex);
 	philo->common->count_start++;
+	// printf("start = %d\n", philo->common->count_start);
 	pthread_mutex_unlock(&philo->common->common_mutex);
 	while (1)
 	{
@@ -35,6 +33,14 @@ void	*routine(void *data)
 		pthread_mutex_unlock(&philo->common->common_mutex);
 		usleep(100);
 	}
+	// printf("philo.philo_id = %d\n", philo->philo_id);
+}
+void	*routine(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_launch(philo);
 	return (NULL);
 }
 
