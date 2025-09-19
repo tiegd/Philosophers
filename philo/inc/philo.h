@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/16 15:51:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:38:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_common
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
+	int				count_start;
 	int				died;
 }					t_common;
 
@@ -41,17 +42,17 @@ typedef struct	s_philo
 	t_fork		*left_fork; //nb_philo + 1
 	t_fork		*right_fork; //nb_philo
 	int			philo_id;
+	int			is_died;
 	bool		is_sleeping;
 	bool		is_eating;
 	bool		is_thinking;
-	bool		is_died;
 }				t_philo;
 
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi(const char *nptr);
 t_common	init_common(int ac, char **av);
-t_fork		*init_forks(t_common common);
-t_philo		*init_philos(t_common common, t_fork *tab_fork);
+t_fork		*init_forks(t_common *common);
+t_philo		*init_philos(t_common *common, t_fork *tab_fork);
 void		print_tab_fork(t_fork *tab_fork, t_common common);
 void		print_tab_philo(t_philo *tab_philo, t_common common);
 
