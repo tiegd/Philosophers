@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 10:38:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:08:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	*routine(void *data)
 
 	philo = (t_philo *)data;
 	wait_launch(philo);
+	if (philo->common->died == 1)
+		return (NULL);
 	return (NULL);
 }
 
@@ -50,20 +52,12 @@ int main(int ac, char **av)
 	int			i;
 
 	i = 0;
-	// if (ac >= 5 && ac <= 6)
-	// {
-		if (!parsing(ac, av))
-			return (0);
-		common = init_common(ac, av);
-		tab_fork = init_forks(&common);
-		tab_philo = init_philos(&common, tab_fork);
-	// }
-	// else
-	// {
-	// 	printf("Wrong number of arguments\n");
-	// 	return (1);
-	// }
-	print_tab_philo(tab_philo, common);
+	if (!parsing(ac, av))
+		return (0);
+	common = init_common(ac, av);
+	tab_fork = init_forks(&common);
+	tab_philo = init_philos(&common, tab_fork);
+	// print_tab_philo(tab_philo, common);
 	while (i <= common.nb_philo - 1)
 	{
 		pthread_create(&tab_philo[i].tid, NULL, &routine, &tab_philo[i]);

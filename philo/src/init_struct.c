@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/19 14:39:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:09:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ t_fork	*init_forks(t_common *common)
 	i = 1;
 	j = 0;
 	tab_fork = malloc(common->nb_philo * sizeof(t_fork));
-	// if (!tab_fork)
-	// 	return (NULL);
+	if (!tab_fork)
+		return (NULL);
 	while (i <= common->nb_philo)
 	{
 		pthread_mutex_init(&tab_fork[j].fork_mutex, NULL);
 		tab_fork[j].id_fork = i;
 		tab_fork[j].avalable = 0;
-		// printf("tab_fork[%d].id_fork = %d\n", j, tab_fork[j].id_fork);
 		i++;
 		j++;
 	}
