@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 11:09:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:07:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ t_common	init_common(int ac, char **av)
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
 	common.time_to_sleep = ft_atoi(av[4]);
-	common.died = -1;
 	common.count_start = 0;
+	common.printing = 0;
+	common.died = 0;
 	if (ac == 6)
 		common.nb_must_eat = ft_atoi(av[5]);
 	else

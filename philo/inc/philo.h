@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 10:44:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:05:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_common
 	int				time_to_sleep;
 	int				nb_must_eat;
 	int				count_start;
+	int				printing;
 	int				died;
 }					t_common;
 
@@ -65,5 +66,10 @@ int			ft_atoi(const char *nptr);
 
 void		print_tab_fork(t_fork *tab_fork, t_common common);
 void		print_tab_philo(t_philo *tab_philo, t_common common);
+
+/*-----------UTILS-----------*/
+
+void		display_philo(t_philo *philo);
+void		display_move(t_philo *philo);
 
 #endif

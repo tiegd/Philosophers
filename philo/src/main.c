@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 11:08:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:09:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ void	wait_launch(t_philo *philo)
 }
 void	*routine(void *data)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	int				i;
 
+	i = 0;
 	philo = (t_philo *)data;
 	wait_launch(philo);
+	while (i++ < 5)
+		display_move(philo);
 	if (philo->common->died == 1)
 		return (NULL);
 	return (NULL);
