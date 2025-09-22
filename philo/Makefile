@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/16 11:46:13 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/22 10:39:33 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,10 @@ DIR_SRC = src/
 SRC =	main.c				\
 		handle_threads.c	\
 		init_struct.c		\
-		philo_utils.c		\
 		clean.c				\
 		print_test.c		\
+		parsing_utils.c		\
+		parsing.c			\
 
 OBJ = $(SRC: .c=.o)
 OBJ := $(addprefix $(BIN), $(SRC:.c=.o))

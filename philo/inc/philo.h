@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/19 14:38:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 10:44:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,21 @@ typedef struct	s_philo
 	bool		is_thinking;
 }				t_philo;
 
-int			ft_strcmp(const char *s1, const char *s2);
-int			ft_atoi(const char *nptr);
+
+/*-----------INIT-----------*/
+
 t_common	init_common(int ac, char **av);
 t_fork		*init_forks(t_common *common);
 t_philo		*init_philos(t_common *common, t_fork *tab_fork);
+
+/*-----------PARSING-----------*/
+
+int			parsing(int ac, char **av);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_atoi(const char *nptr);
+
+/*-----------PRINT_TEST-----------*/
+
 void		print_tab_fork(t_fork *tab_fork, t_common common);
 void		print_tab_philo(t_philo *tab_philo, t_common common);
 
