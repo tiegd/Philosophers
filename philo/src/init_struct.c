@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 13:07:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:48:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ t_common	init_common(int ac, char **av)
 {
 	t_common	common;
 
-	pthread_mutex_init(&common.common_mutex, NULL); //for lock common.died
+	pthread_mutex_init(&common.common_mutex, NULL);
 	common.nb_philo = ft_atoi(av[1]);
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
 	common.time_to_sleep = ft_atoi(av[4]);
 	common.count_start = 0;
-	common.printing = 0;
 	common.died = 0;
 	if (ac == 6)
 		common.nb_must_eat = ft_atoi(av[5]);
@@ -65,8 +64,8 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 	i = 0;
 	// j = 1;
 	tab_philo = malloc(common->nb_philo * sizeof(t_philo));
-	// if (!tab_philo)
-	// 	return (NULL);
+	if (!tab_philo)
+		return (NULL);
 	while (i <= common->nb_philo - 1)
 	{
 		tab_philo[i].common = common;
@@ -76,10 +75,7 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 		if (i == 0)
 			tab_philo[i].right_fork = &tab_fork[common->nb_philo - 1];
 		tab_philo[i].philo_id = i + 1;
-		tab_philo[i].is_sleeping = false;
-		tab_philo[i].is_died = 0;
-		tab_philo[i].is_thinking = false;
-		tab_philo[i].is_died = false;
+		// tab_philo[i].is_died = 0;
 		i++;
 	}
 	return (tab_philo);

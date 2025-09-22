@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 13:09:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:25:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	*routine(void *data)
 	i = 0;
 	philo = (t_philo *)data;
 	wait_launch(philo);
-	while (i++ < 5)
-		display_move(philo);
+	philo->last_meal = philo->common->begin_simulation;
+	// while (i++ < 5)
+	display_move(philo);
 	if (philo->common->died == 1)
 		return (NULL);
 	return (NULL);
@@ -62,6 +63,8 @@ int main(int ac, char **av)
 	tab_fork = init_forks(&common);
 	tab_philo = init_philos(&common, tab_fork);
 	// print_tab_philo(tab_philo, common);
+	common.begin_simulation = common.tv.tv_usec;
+	// printf("%d\n", common.begin_simuation);
 	while (i <= common.nb_philo - 1)
 	{
 		pthread_create(&tab_philo[i].tid, NULL, &routine, &tab_philo[i]);
