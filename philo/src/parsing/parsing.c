@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 10:42:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:14:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	is_valid(char *s)
 	return (1);
 }
 
-int	parsing(int ac, char **av)
+int	check_args(int ac, char **av)
 {
 	int	i;
 
@@ -77,5 +77,27 @@ int	parsing(int ac, char **av)
 			return (0);
 		i++;
 	}
+	return (1);
+}
+
+int	parsing(int ac, char **av)
+{
+	t_common 	common;
+	t_fork		*tab_fork;
+	t_philo		*tab_philo;
+
+	if (!check_args(ac, av))
+		return (0);
+	common = init_common(ac, av);
+	tab_fork = init_forks(&common);
+	tab_philo = init_philos(&common, tab_fork);
+	common.begin_simulation = common.tv.tv_usec;
+	if (!launch_threads(tab_philo))
+	{
+		free_all(tab_philo, tab_fork);
+		return (0);
+	}
+	wait_threads_end(tab_philo);
+	free_all(tab_philo, tab_fork);
 	return (1);
 }

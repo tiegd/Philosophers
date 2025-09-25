@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 14:48:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:08:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_common	init_common(int ac, char **av)
 {
 	t_common	common;
 
-	pthread_mutex_init(&common.common_mutex, NULL);
+	pthread_mutex_init(&common.common_mutex.mutex, NULL);
 	common.nb_philo = ft_atoi(av[1]);
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
@@ -46,9 +46,9 @@ t_fork	*init_forks(t_common *common)
 		return (NULL);
 	while (i <= common->nb_philo)
 	{
-		pthread_mutex_init(&tab_fork[j].fork_mutex, NULL);
+		pthread_mutex_init(&tab_fork[j].fork_mutex.mutex, NULL);
 		tab_fork[j].id_fork = i;
-		tab_fork[j].avalable = 0;
+		tab_fork[j].avalable = 1;
 		i++;
 		j++;
 	}
@@ -59,10 +59,8 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 {
 	t_philo	*tab_philo;
 	int		i;
-	// int		j;
 
 	i = 0;
-	// j = 1;
 	tab_philo = malloc(common->nb_philo * sizeof(t_philo));
 	if (!tab_philo)
 		return (NULL);
@@ -75,7 +73,7 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 		if (i == 0)
 			tab_philo[i].right_fork = &tab_fork[common->nb_philo - 1];
 		tab_philo[i].philo_id = i + 1;
-		// tab_philo[i].is_died = 0;
+		tab_philo[i].stop = false;
 		i++;
 	}
 	return (tab_philo);

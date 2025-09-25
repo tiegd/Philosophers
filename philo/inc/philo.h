@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 16:24:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:26:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,29 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <inttypes.h>
+
+struct t_philo;
+
+typedef struct	s_shared
+{
+	uint32_t		data;
+	uint8_t			state;
+	pthread_mutex_t	mutex;
+}					t_shared;
 
 typedef struct	s_fork
 {
-	pthread_mutex_t	fork_mutex;
+	t_shared		fork_mutex;
 	int				id_fork;
 	int				avalable;
 }					t_fork;
 
 typedef struct	s_common
 {
-	pthread_mutex_t	common_mutex;
+	t_shared		common_mutex;
+	struct t_philo	*head_tab_philo;
+	t_fork			*head_tab_fork;
 	struct timeval	tv;
 	struct timezone	tz;
 	int				nb_philo;
@@ -42,19 +54,19 @@ typedef struct	s_common
 typedef struct	s_philo
 {
 	pthread_t		tid;
-	t_common	*common;
-	t_fork		*left_fork; //nb_philo + 1
-	t_fork		*right_fork; //nb_philo
-	int			philo_id;
-	// int			is_died;
-	int			last_meal;
-	int			end_of_eating;
-	int			end_of_sleeping;
-	int			end_of_life;
-	// bool		is_thinking;
-	// bool		is_sleeping;
-	// bool		is_eating;
-}				t_philo;
+	t_shared		philo_mutex;
+	t_common		*common;
+	t_fork			*left_fork; //nb_philo + 1
+	t_fork			*right_fork; //nb_philo
+	int				philo_id;
+	int				last_meal;
+	int				time_diff;
+	int				end_of_eating;
+	int				end_of_sleeping;
+	int				end_of_life;
+	int				dead_line;
+	bool			stop;
+}					t_philo;
 
 
 /*-----------INIT-----------*/
@@ -66,6 +78,7 @@ t_philo		*init_philos(t_common *common, t_fork *tab_fork);
 /*-----------PARSING-----------*/
 
 int			parsing(int ac, char **av);
+int			check_args(int ac, char **av);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi(const char *nptr);
 
@@ -77,6 +90,20 @@ void		print_tab_philo(t_philo *tab_philo, t_common common);
 /*-----------UTILS-----------*/
 
 void		display_philo(t_philo *philo);
-void		display_move(t_philo *philo);
+void		display_action(t_philo *philo);
+
+/*-----------MANAGE_MUTEX-----------*/
+
+uint32_t	get_data_mutex(t_shared *data_shared);
+void		set_data_mutex(t_shared *data_shared, uint32_t data);
+
+/*-----------HANDLE_THREAD-----------*/
+
+void		wait_launch(t_philo *philo);
+void		*routine(void *data);
+
+/*-----------CLEAN-----------*/
+
+void		free_all(t_philo *tab_philo, t_fork *tab_fork);
 
 #endif
