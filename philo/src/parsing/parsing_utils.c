@@ -6,13 +6,24 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 10:50:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:43:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
 #include <pthread.h>
+#include <stdio.h>
+
+int check_nb_args(int ac)
+{
+	if (ac < 5 || ac > 6)
+	{
+		printf("Wrong number of arguments\n");
+		return (0);
+	}
+	return (1);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -26,6 +37,21 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+}
+
+int	check_nb_philo(char *s)
+{
+	if (ft_strcmp(s, "1\0") == 0)
+	{
+		printf("Only one philo can't eat\n");
+		return (0);
+	}
+	if (ft_strcmp(s, "0\0") == 0)
+	{
+		printf("There is no philosopher\n");
+		return (0);
+	}
+	return (1);
 }
 
 int	ft_atoi(const char *nptr)

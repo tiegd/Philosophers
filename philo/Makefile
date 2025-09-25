@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/22 12:43:03 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/25 17:42:13 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ BIN = bin/
 			
 DIR_SRC = src/
 
-SRC =	main.c				\
-		handle_threads.c	\
-		init_struct.c		\
-		clean.c				\
-		print_test.c		\
-		parsing_utils.c		\
-		parsing.c			\
-		display_move.c		\
+SRC =	main.c	\
+		mutex/manage_mutex.c	\
+		parsing/init_struct.c	\
+		parsing/parsing_utils.c	\
+		parsing/parsing.c	\
+		threads/display_move.c	\
+		threads/handle_threads.c	\
+		clean.c	\
+		print_test.c	\
 
 OBJ = $(SRC: .c=.o)
 OBJ := $(addprefix $(BIN), $(SRC:.c=.o))

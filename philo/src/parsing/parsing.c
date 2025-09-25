@@ -6,37 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/25 17:14:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:46:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-
-int check_nb_args(int ac)
-{
-	if (ac < 5 || ac > 6)
-	{
-		printf("Wrong number of arguments\n");
-		return (0);
-	}
-	return (1);
-}
-
-int	check_nb_philo(char *s)
-{
-	if (ft_strcmp(s, "1\0") == 0)
-	{
-		printf("Only one philo can't eat\n");
-		return (0);
-	}
-	if (ft_strcmp(s, "0\0") == 0)
-	{
-		printf("There is no philosopher\n");
-		return (0);
-	}
-	return (1);
-}
 
 int	ft_isdigit(int c)
 {
@@ -92,7 +67,7 @@ int	parsing(int ac, char **av)
 	tab_fork = init_forks(&common);
 	tab_philo = init_philos(&common, tab_fork);
 	common.begin_simulation = common.tv.tv_usec;
-	if (!launch_threads(tab_philo))
+	if (!launch_threads(&common))
 	{
 		free_all(tab_philo, tab_fork);
 		return (0);

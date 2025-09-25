@@ -6,26 +6,27 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/25 17:15:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:57:51 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 void	wait_launch(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->common_mutex);
+	pthread_mutex_lock(&philo->common->common_mutex.mutex);
 	philo->common->count_start++;
-	pthread_mutex_unlock(&philo->common->common_mutex);
+	pthread_mutex_unlock(&philo->common->common_mutex.mutex);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->common->common_mutex);
+		pthread_mutex_lock(&philo->common->common_mutex.mutex);
 		if (philo->common->count_start == philo->common->nb_philo)
 		{
-			pthread_mutex_unlock(&philo->common->common_mutex);
+			pthread_mutex_unlock(&philo->common->common_mutex.mutex);
 			break;
 		}
-		pthread_mutex_unlock(&philo->common->common_mutex);
+		pthread_mutex_unlock(&philo->common->common_mutex.mutex);
 		usleep(100);
 	}
 }
@@ -46,8 +47,8 @@ void	*routine(void *data)
 
 int	launch_threads(t_common *common)
 {
-	int	i;
-	int	nb_philo_cp;
+	int		i;
+	int		nb_philo_cp;
 	t_philo	*tab_philo;
 
 	i = 0;

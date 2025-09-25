@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/25 17:26:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:57:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_philo		*init_philos(t_common *common, t_fork *tab_fork);
 
 int			parsing(int ac, char **av);
 int			check_args(int ac, char **av);
+int 		check_nb_args(int ac);
+int			check_nb_philo(char *s);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi(const char *nptr);
 
@@ -99,6 +101,8 @@ void		set_data_mutex(t_shared *data_shared, uint32_t data);
 
 /*-----------HANDLE_THREAD-----------*/
 
+int			launch_threads(t_common *common);
+void		wait_threads_end(t_philo *tab_philo);
 void		wait_launch(t_philo *philo);
 void		*routine(void *data);
 
