@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 13:04:02 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:26:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,47 @@
 
 void	wait_launch(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->common_mutex.mutex);
+	// printf("coucou la team\n");
+	// printf("count_start = %d\n", philo->common->count_start);
+	pthread_mutex_lock(&philo->common->mutex_test);
 	philo->common->count_start++;
-	pthread_mutex_unlock(&philo->common->common_mutex.mutex);
+	pthread_mutex_unlock(&philo->common->mutex_test);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->common->common_mutex.mutex);
+		pthread_mutex_lock(&philo->common->mutex_test);
 		if (philo->common->count_start == philo->common->nb_philo)
 		{
 			if (philo->common->begin_simulation == 0)
 				philo->common->begin_simulation = philo->common->tv.tv_usec;
-			pthread_mutex_unlock(&philo->common->common_mutex.mutex);
+			pthread_mutex_unlock(&philo->common->mutex_test);
 			break;
 		}
-		pthread_mutex_unlock(&philo->common->common_mutex.mutex);
+		pthread_mutex_unlock(&philo->common->mutex_test);
 		usleep(100);
 	}
 }
+
+// void	wait_launch(t_philo *philo)
+// {
+// 	printf("coucou la team\n");
+// 	printf("count_start = %d\n", philo->common->count_start.data);
+// 	pthread_mutex_lock(&philo->common->count_start.mutex);
+// 	philo->common->count_start.data++;
+// 	pthread_mutex_unlock(&philo->common->count_start.mutex);
+// 	while (1)
+// 	{
+// 		pthread_mutex_lock(&philo->common->count_start.mutex);
+// 		if (philo->common->count_start.data == philo->common->nb_philo)
+// 		{
+// 			if (philo->common->begin_simulation == 0)
+// 				philo->common->begin_simulation = philo->common->tv.tv_usec;
+// 			pthread_mutex_unlock(&philo->common->count_start.mutex);
+// 			break;
+// 		}
+// 		pthread_mutex_unlock(&philo->common->count_start.mutex);
+// 		usleep(100);
+// 	}
+// }
 void	*routine(void *data)
 {
 	t_philo			*philo;
@@ -46,7 +70,7 @@ void	*routine(void *data)
 	philo->last_meal = philo->common->begin_simulation;
 	// printf("%d\n", philo->last_meal);
 	display_action(philo);
-	if (philo->common->died == 1)
+	if (philo->common->stop.data == 1)
 		return (NULL);
 	return (NULL);
 }

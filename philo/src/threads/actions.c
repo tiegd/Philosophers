@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 11:12:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:03:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	is_thinking(t_philo *philo)
 {
+	// while (get_data_mutex())
 	display_philo(philo);
 	printf("is thinking\n");
 }

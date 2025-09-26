@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:42:30 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 11:14:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:05:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	philo_action(t_philo *philo)
 
 void	display_action(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->common_mutex.mutex);
+	pthread_mutex_lock(&philo->common->stop.mutex);
 	philo_action(philo);
-	pthread_mutex_unlock(&philo->common->common_mutex.mutex);
+	pthread_mutex_unlock(&philo->common->stop.mutex);
 }

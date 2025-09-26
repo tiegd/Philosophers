@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 12:37:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:24:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ struct t_philo;
 
 typedef struct	s_shared
 {
-	uint32_t		data;
+	// uint32_t		data;
+	int				data;
 	uint8_t			state;
 	pthread_mutex_t	mutex;
 }					t_shared;
@@ -40,7 +41,9 @@ typedef struct	s_fork
 
 typedef struct	s_common
 {
-	t_shared		common_mutex;
+	t_shared		stop;
+	pthread_mutex_t	mutex_test;
+	// t_shared		count_start;
 	struct s_philo	*head_tab_philo;
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
@@ -50,9 +53,9 @@ typedef struct	s_common
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
-	int				count_start;
 	int				begin_simulation;
-	int				died;
+	int				count_start;
+	// int				died;
 }					t_common;
 
 typedef struct	s_philo
@@ -65,7 +68,7 @@ typedef struct	s_philo
 	int				philo_id;
 	int				last_meal;
 	int				time_diff;
-	int				end_of_eating;
+	int				end_of_meal;
 	int				end_of_sleeping;
 	int				end_of_life;
 	int				dead_line;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 12:58:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:26:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ t_common	init_common(int ac, char **av)
 {
 	t_common	common;
 
-	pthread_mutex_init(&common.common_mutex.mutex, NULL);
+	pthread_mutex_init(&common.stop.mutex, NULL);
 	common.nb_philo = ft_atoi(av[1]);
 	common.time_to_die = ft_atoi(av[2]);
 	common.time_to_eat = ft_atoi(av[3]);
 	common.time_to_sleep = ft_atoi(av[4]);
 	common.count_start = 0;
-	common.died = 0;
+	// common.count_start.data = 0;
+	common.stop.data = 0;
 	common.begin_simulation = 0;
 	if (ac == 6)
 		common.nb_must_eat = ft_atoi(av[5]);
