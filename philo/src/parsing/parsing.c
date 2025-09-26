@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/25 17:46:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:19:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	parsing(int ac, char **av)
 	common = init_common(ac, av);
 	tab_fork = init_forks(&common);
 	tab_philo = init_philos(&common, tab_fork);
-	common.begin_simulation = common.tv.tv_usec;
 	if (!launch_threads(&common))
 	{
 		free_all(tab_philo, tab_fork);

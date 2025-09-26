@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/25 17:42:13 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/26 11:08:42 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC =	main.c	\
 		parsing/parsing.c	\
 		threads/display_move.c	\
 		threads/handle_threads.c	\
+		threads/actions.c	\
 		clean.c	\
 		print_test.c	\
 

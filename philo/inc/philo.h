@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/25 17:57:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:37:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include <inttypes.h>
+
+#define RED "\x1b[31m"
+#define RESET "\x1b[0m"
+#define GREEN "\x1b[32m"
 
 struct t_philo;
 
@@ -37,7 +41,7 @@ typedef struct	s_fork
 typedef struct	s_common
 {
 	t_shared		common_mutex;
-	struct t_philo	*head_tab_philo;
+	struct s_philo	*head_tab_philo;
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
 	struct timezone	tz;
@@ -105,6 +109,12 @@ int			launch_threads(t_common *common);
 void		wait_threads_end(t_philo *tab_philo);
 void		wait_launch(t_philo *philo);
 void		*routine(void *data);
+
+void		is_thinking(t_philo *philo);
+void		taking_fork(t_philo *philo);
+void		is_eating(t_philo *philo);
+void		is_sleeping(t_philo *philo);
+void		is_dead(t_philo *philo);
 
 /*-----------CLEAN-----------*/
 
