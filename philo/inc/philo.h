@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 14:24:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/27 17:01:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ struct t_philo;
 
 typedef struct	s_shared
 {
-	// uint32_t		data;
+	// uint32_t		data; //on ne dápace jamais 32 bit 
 	int				data;
-	uint8_t			state;
+	uint8_t			state; //
 	pthread_mutex_t	mutex;
 }					t_shared;
 
@@ -42,8 +42,9 @@ typedef struct	s_fork
 typedef struct	s_common
 {
 	t_shared		stop;
-	pthread_mutex_t	mutex_test;
-	// t_shared		count_start;
+	// pthread_mutex_t	mutex_test;
+	t_shared		count_start;
+	t_shared		begin_simulation;
 	struct s_philo	*head_tab_philo;
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
@@ -53,8 +54,8 @@ typedef struct	s_common
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
-	int				begin_simulation;
-	int				count_start;
+	// int				begin_simulation;
+	// int				count_start;
 	// int				died;
 }					t_common;
 
@@ -81,6 +82,7 @@ typedef struct	s_philo
 t_common	init_common(int ac, char **av);
 t_fork		*init_forks(t_common *common);
 t_philo		*init_philos(t_common *common, t_fork *tab_fork);
+int			init_mutex_common(t_common *common);
 
 /*-----------PARSING-----------*/
 
@@ -103,8 +105,8 @@ void		display_action(t_philo *philo);
 
 /*-----------MANAGE_MUTEX-----------*/
 
-uint32_t	get_data_mutex(t_shared *data_shared);
-void		set_data_mutex(t_shared *data_shared, uint32_t data);
+int			get_data_mutex(t_shared *data_shared);
+void		set_data_mutex(t_shared *data_shared, int data);
 
 /*-----------HANDLE_THREAD-----------*/
 

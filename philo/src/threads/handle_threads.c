@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/26 14:26:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/27 17:04:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
 
 void	wait_launch(t_philo *philo)
 {
-	// printf("coucou la team\n");
-	// printf("count_start = %d\n", philo->common->count_start);
-	pthread_mutex_lock(&philo->common->mutex_test);
-	philo->common->count_start++;
-	pthread_mutex_unlock(&philo->common->mutex_test);
+	pthread_mutex_lock(&philo->common->count_start.mutex);
+	philo->common->count_start.data++;
+	pthread_mutex_unlock(&philo->common->count_start.mutex);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->common->mutex_test);
-		if (philo->common->count_start == philo->common->nb_philo)
+		printf(GREEN"begin_simulation = %d\n"RESET, philo->common->begin_simulation.data);
+		pthread_mutex_lock(&philo->common->count_start.mutex);
+		if (philo->common->count_start.data == philo->common->nb_philo)
 		{
-			if (philo->common->begin_simulation == 0)
-				philo->common->begin_simulation = philo->common->tv.tv_usec;
-			pthread_mutex_unlock(&philo->common->mutex_test);
+			// if (philo->common->begin_simulation == 0)
+				// philo->common->begin_simulation = philo->common->tv.tv_usec;
+			if (get_data_mutex(&philo->common->begin_simulation) == 0)
+				set_data_mutex(&philo->common->begin_simulation, philo->common->tv.tv_usec);
+			pthread_mutex_unlock(&philo->common->count_start.mutex);
 			break;
 		}
-		pthread_mutex_unlock(&philo->common->mutex_test);
-		usleep(100);
+		pthread_mutex_unlock(&philo->common->count_start.mutex);
+		usleep(500);
 	}
 }
 
@@ -66,8 +67,8 @@ void	*routine(void *data)
 	i = 0;
 	philo = (t_philo *)data;
 	wait_launch(philo);
-	// printf(RED"%d\n"RESET, philo->common->begin_simulation);
-	philo->last_meal = philo->common->begin_simulation;
+	printf(RED"%d\n"RESET, philo->common->begin_simulation.data);
+	philo->last_meal = philo->common->begin_simulation.data;
 	// printf("%d\n", philo->last_meal);
 	display_action(philo);
 	if (philo->common->stop.data == 1)
