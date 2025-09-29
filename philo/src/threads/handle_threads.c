@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/27 17:04:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:44:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ void	wait_launch(t_philo *philo)
 	pthread_mutex_unlock(&philo->common->count_start.mutex);
 	while (1)
 	{
-		printf(GREEN"begin_simulation = %d\n"RESET, philo->common->begin_simulation.data);
+		// printf(GREEN"begin_simulation = %d\n"RESET, philo->common->begin_simulation.data);
 		pthread_mutex_lock(&philo->common->count_start.mutex);
 		if (philo->common->count_start.data == philo->common->nb_philo)
 		{
-			// if (philo->common->begin_simulation == 0)
-				// philo->common->begin_simulation = philo->common->tv.tv_usec;
 			if (get_data_mutex(&philo->common->begin_simulation) == 0)
 				set_data_mutex(&philo->common->begin_simulation, philo->common->tv.tv_usec);
 			pthread_mutex_unlock(&philo->common->count_start.mutex);
@@ -38,27 +36,6 @@ void	wait_launch(t_philo *philo)
 	}
 }
 
-// void	wait_launch(t_philo *philo)
-// {
-// 	printf("coucou la team\n");
-// 	printf("count_start = %d\n", philo->common->count_start.data);
-// 	pthread_mutex_lock(&philo->common->count_start.mutex);
-// 	philo->common->count_start.data++;
-// 	pthread_mutex_unlock(&philo->common->count_start.mutex);
-// 	while (1)
-// 	{
-// 		pthread_mutex_lock(&philo->common->count_start.mutex);
-// 		if (philo->common->count_start.data == philo->common->nb_philo)
-// 		{
-// 			if (philo->common->begin_simulation == 0)
-// 				philo->common->begin_simulation = philo->common->tv.tv_usec;
-// 			pthread_mutex_unlock(&philo->common->count_start.mutex);
-// 			break;
-// 		}
-// 		pthread_mutex_unlock(&philo->common->count_start.mutex);
-// 		usleep(100);
-// 	}
-// }
 void	*routine(void *data)
 {
 	t_philo			*philo;
