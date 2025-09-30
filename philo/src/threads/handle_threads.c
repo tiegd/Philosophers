@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/29 13:44:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:55:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	wait_launch(t_philo *philo)
 		if (philo->common->count_start.data == philo->common->nb_philo)
 		{
 			if (get_data_mutex(&philo->common->begin_simulation) == 0)
+			{
+				gettimeofday(&philo->common->tv, NULL);
 				set_data_mutex(&philo->common->begin_simulation, philo->common->tv.tv_usec);
+			}
 			pthread_mutex_unlock(&philo->common->count_start.mutex);
 			break;
 		}
@@ -46,7 +49,8 @@ void	*routine(void *data)
 	wait_launch(philo);
 	printf(RED"%d\n"RESET, philo->common->begin_simulation.data);
 	philo->last_meal = philo->common->begin_simulation.data;
-	// printf("%d\n", philo->last_meal);
+	philo->dead_line = philo->common->begin_simulation.data + philo->common->time_to_die;
+	printf("%d\n", philo->dead_line);
 	display_action(philo);
 	if (philo->common->stop.data == 1)
 		return (NULL);

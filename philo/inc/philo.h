@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/29 13:54:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:48:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ struct t_philo;
 
 typedef struct	s_shared
 {
-	// uint32_t		data; //on ne dápace jamais 32 bit 
+	// uint32_t		data; //on ne dépasse jamais 32 bit 
 	int				data;
-	uint8_t			state; //
+	uint8_t			state;
 	pthread_mutex_t	mutex;
 }					t_shared;
 
@@ -42,21 +42,17 @@ typedef struct	s_fork
 typedef struct	s_common
 {
 	t_shared		stop;
-	// pthread_mutex_t	mutex_test;
 	t_shared		count_start;
 	t_shared		begin_simulation;
 	struct s_philo	*head_tab_philo;
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
-	struct timezone	tz;
+	// struct timezone	tz;
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
-	// int				begin_simulation;
-	// int				count_start;
-	// int				died;
 }					t_common;
 
 typedef struct	s_philo
