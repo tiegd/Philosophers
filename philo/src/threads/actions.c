@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/30 15:18:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:29:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	is_thinking(t_philo *philo)
 {
 	printf("paul le poulpe\n");
 	printf("philo->common->stop = %d\n", philo->common->stop.data);
-	printf("philo->common->stop = %d\n", get_data_mutex(&philo->common->stop));
-	while (get_data_mutex(&philo->common->stop) == 0)
+	// printf("get_datat : philo->common->stop = %d\n", get_data_mutex(&philo->common->stop));
+	// while (get_data_mutex(&philo->common->stop) == 0)
+	while (philo->common->stop.data == 0)
 	{
 		printf("laala\n");
 		printf("time = %ld\ndead_line = %d\n", philo->common->tv.tv_usec, philo->dead_line);
@@ -33,6 +34,7 @@ void	is_thinking(t_philo *philo)
 		{
 			display_philo(philo);
 			printf("died\n");
+			set_data_mutex(&philo->common->stop, 1);
 			break;
 		}
 		usleep(500);
