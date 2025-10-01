@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/30 14:48:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 13:17:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #define RED "\x1b[31m"
 #define RESET "\x1b[0m"
 #define GREEN "\x1b[32m"
+#define YELLOW "\x1b[33m"
 
 struct t_philo;
 
@@ -34,9 +35,9 @@ typedef struct	s_shared
 
 typedef struct	s_fork
 {
-	t_shared		fork_mutex;
+	t_shared		avalable;
 	int				id_fork;
-	int				avalable;
+	// int				avalable;
 }					t_fork;
 
 typedef struct	s_common
@@ -114,10 +115,9 @@ void		wait_launch(t_philo *philo);
 void		*routine(void *data);
 
 void		is_thinking(t_philo *philo);
-void		taking_fork(t_philo *philo);
+int			check_fork_avalable(t_philo *philo);
 void		is_eating(t_philo *philo);
 void		is_sleeping(t_philo *philo);
-void		is_dead(t_philo *philo);
 
 /*-----------CLEAN-----------*/
 

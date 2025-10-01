@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:42:30 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 10:29:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 12:47:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ void	display_philo(t_philo *philo)
 
 void	philo_action(t_philo *philo)
 {
-	if (get_data_mutex(&philo->common->stop) == 0)
-		is_thinking(philo);
-	if (get_data_mutex(&philo->common->stop) == 0)
-		taking_fork(philo);
-	if (get_data_mutex(&philo->common->stop) == 0)
-		is_eating(philo);
-	if (get_data_mutex(&philo->common->stop) == 0)
-		is_sleeping(philo);
-	// if (get_data_mutex(&philo->common->stop) == 0)
-	// 	is_dead(philo);
+	while (get_data_mutex(&philo->common->stop) == 0)
+	{
+		if (get_data_mutex(&philo->common->stop) == 0)
+			is_thinking(philo);
+		// if (get_data_mutex(&philo->common->stop) == 0)
+		// 	taking_fork(philo);
+		if (get_data_mutex(&philo->common->stop) == 0)
+			is_eating(philo);
+		if (get_data_mutex(&philo->common->stop) == 0)
+			is_sleeping(philo);
+		// if (get_data_mutex(&philo->common->stop) == 0)
+		// 	is_dead(philo);
+	}
 }
 
 void	display_action(t_philo *philo)

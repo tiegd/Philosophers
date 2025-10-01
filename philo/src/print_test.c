@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:38:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/19 12:05:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 10:50:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_tab_fork(t_fork *tab_fork, t_common common)
 	i = 0;
 	while (i <= common.nb_philo - 1)
 	{
-		printf("tab_fork[%d].id_fork = %d\ntab_fork[%d].avalable = %d\n", i, tab_fork[i].id_fork, i, tab_fork[i].avalable);
+		printf("tab_fork[%d].id_fork = %d\ntab_fork[%d].avalable = %d\n", i, tab_fork[i].id_fork, i, tab_fork[i].avalable.data);
 		i++;
 	}
 }
