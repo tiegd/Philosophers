@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 13:17:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:15:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_fork
 {
 	t_shared		avalable;
 	int				id_fork;
+	int				locked_by;
 	// int				avalable;
 }					t_fork;
 

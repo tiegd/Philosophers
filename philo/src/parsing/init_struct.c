@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 10:47:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:17:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_fork	*init_forks(t_common *common)
 		pthread_mutex_init(&tab_fork[j].avalable.mutex, NULL);
 		tab_fork[j].id_fork = i;
 		tab_fork[j].avalable.data = 1;
+		tab_fork[j].locked_by = 0;
 		i++;
 		j++;
 	}
