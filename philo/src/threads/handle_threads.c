@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/30 14:55:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 10:30:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	*routine(void *data)
 	i = 0;
 	philo = (t_philo *)data;
 	wait_launch(philo);
-	printf(RED"%d\n"RESET, philo->common->begin_simulation.data);
 	philo->last_meal = philo->common->begin_simulation.data;
 	philo->dead_line = philo->common->begin_simulation.data + philo->common->time_to_die;
-	printf("%d\n", philo->dead_line);
 	display_action(philo);
 	if (philo->common->stop.data == 1)
 		return (NULL);
