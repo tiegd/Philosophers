@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 14:15:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:05:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #define RESET "\x1b[0m"
 #define GREEN "\x1b[32m"
 #define YELLOW "\x1b[33m"
+#define BLUE "\x1b[34m"
 
 struct t_philo;
 
@@ -100,8 +101,9 @@ void		print_tab_philo(t_philo *tab_philo, t_common common);
 
 /*-----------UTILS-----------*/
 
-void		display_philo(t_philo *philo);
-void		display_action(t_philo *philo);
+// void		display_philo(t_philo *philo);
+// void		display_action(t_philo *philo);
+void		philo_action(t_philo *philo);
 
 /*-----------MANAGE_MUTEX-----------*/
 

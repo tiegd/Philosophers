@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 14:25:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:11:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	is_thinking(t_philo *philo)
 {
+	gettimeofday(&philo->common->tv, NULL);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (philo->is_thinking == 0)
@@ -25,6 +26,7 @@ void	is_thinking(t_philo *philo)
 		}
 		if (check_fork_avalable(philo))
 		{
+			printf(YELLOW"Achilles le gans de toilette\n"RESET);
 			philo->is_thinking = 0;
 			philo->dead_line = philo->common->tv.tv_usec + philo->common->time_to_die;
 			break;
@@ -46,6 +48,7 @@ void	is_thinking(t_philo *philo)
 
 int	check_fork_avalable(t_philo *philo)
 {
+	gettimeofday(&philo->common->tv, NULL);
 	if (philo->left_fork->avalable.data == 1)
 	{
 		pthread_mutex_lock(&philo->left_fork->avalable.mutex);
@@ -62,6 +65,7 @@ int	check_fork_avalable(t_philo *philo)
 	}
 	if (philo->left_fork->avalable.data == 0 && philo->right_fork->avalable.data == 0)
 	{
+		// printf(GREEN"Paul la ficelle\n"RESET);
 		if (philo->left_fork->locked_by == philo->philo_id && philo->right_fork->locked_by == philo->philo_id)
 		{
 			philo->last_meal = philo->common->tv.tv_usec;
@@ -74,10 +78,12 @@ int	check_fork_avalable(t_philo *philo)
 
 void	is_eating(t_philo *philo)
 {
+	gettimeofday(&philo->common->tv, NULL);
 	printf("%ld %d is eating\n", philo->common->tv.tv_usec, philo->philo_id);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		if (philo->common->tv.tv_sec == philo->end_of_meal)
+		printf(RED"-------CACA-------\n"RESET);
+		if (philo->common->tv.tv_sec >= philo->end_of_meal)
 		{
 			printf(YELLOW"Pantoufle\n"RESET);
 			philo->left_fork->avalable.data = 1;
@@ -97,13 +103,16 @@ void	is_eating(t_philo *philo)
 
 void	is_sleeping(t_philo *philo)
 {
+	gettimeofday(&philo->common->tv, NULL);
 	printf("%ld %d is sleeping\n", philo->common->tv.tv_usec, philo->philo_id);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		if (philo->common->tv.tv_usec == philo->end_of_sleeping)
+		// printf(BLUE"Enzo trop KAWAI\n"RESET);
+		// printf("philo->common->tv.tv_usec = %ld\n", philo->common->tv.tv_usec);
+		if (philo->common->tv.tv_usec >= philo->end_of_sleeping)
 			return;
-		if (get_data_mutex(&philo->common->stop) == 1)
-			return;
+		// if (get_data_mutex(&philo->common->stop) == 1)
+		// 	return;
 		usleep(400);
 	}
 }
