@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 19:18:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:23:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	check_fork_avalable(t_philo *philo)
 		philo->left_fork->locked_by = philo->philo_id;
 		philo->left_fork->avalable.data = 0;
 		// printf(RED"%ld %d has taken a fork %d\n"RESET, philo->common->tv.tv_usec, philo->philo_id, philo->left_fork->id_fork);
+		printf("%ld %d has taken a fork\n", philo->common->tv.tv_usec, philo->philo_id);
 	}
 	if (philo->right_fork->avalable.data == 1)
 	{
@@ -60,6 +61,7 @@ int	check_fork_avalable(t_philo *philo)
 		philo->right_fork->locked_by = philo->philo_id;
 		philo->right_fork->avalable.data = 0;
 		// printf(GREEN"%ld %d has taken a fork %d\n"RESET, philo->common->tv.tv_usec, philo->philo_id, philo->right_fork->id_fork);
+		printf("%ld %d has taken a fork\n", philo->common->tv.tv_usec, philo->philo_id);
 	}
 	if (philo->left_fork->avalable.data == 0 && philo->right_fork->avalable.data == 0)
 	{
