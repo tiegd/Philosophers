@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 18:52:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:15:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	wait_launch(t_philo *philo)
 	pthread_mutex_unlock(&philo->common->count_start.mutex);
 	while (1)
 	{
-		// printf(GREEN"begin_simulation = %d\n"RESET, philo->common->begin_simulation.data);
 		pthread_mutex_lock(&philo->common->count_start.mutex);
 		if (philo->common->count_start.data == philo->common->nb_philo)
 		{
