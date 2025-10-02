@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:03:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:52:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	init_mutex_common(t_common *common)
 		return (0);
 	if (pthread_mutex_init(&common->begin_simulation.mutex, NULL) != 0)
 		return (0);
+	if (pthread_mutex_init(&common->all_philo_satiated.mutex, NULL) != 0)
+		return (0);
+	set_data_mutex(&common->all_philo_satiated, 0);
 	set_data_mutex(&common->count_start, 0);
 	set_data_mutex(&common->stop, 0);
 	set_data_mutex(&common->begin_simulation, 0);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:44:51 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:55:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_common	init_common(int ac, char **av)
 	common.time_to_sleep = (size_t)ft_atoi(av[4]);
 	common.stop.data = 0;
 	if (ac == 6)
-		common.nb_must_eat = ft_atoi(av[5]);
+		common.nb_must_eat = (size_t)ft_atoi(av[5]);
 	else
 		common.nb_must_eat = -1;
 	return (common);
@@ -73,6 +73,7 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 		if (i == 0)
 			tab_philo[i].right_fork = &tab_fork[common->nb_philo - 1];
 		tab_philo[i].philo_id = i + 1;
+		tab_philo[i].nb_meal = 0;
 		i++;
 	}
 	common->head_tab_philo = tab_philo;

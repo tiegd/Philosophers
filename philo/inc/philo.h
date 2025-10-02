@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:44:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:55:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ typedef struct	s_common
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	int				nb_must_eat;
+	size_t			nb_must_eat;
+	t_shared		all_philo_satiated;
 }					t_common;
 
 typedef struct	s_philo
@@ -66,6 +67,7 @@ typedef struct	s_philo
 	t_fork			*left_fork; //nb_philo + 1
 	t_fork			*right_fork; //nb_philo
 	int				philo_id;
+	size_t			nb_meal;
 	size_t			last_meal;
 	size_t			end_of_meal;
 	size_t			end_of_sleeping;

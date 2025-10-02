@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:45:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:06:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ size_t	time_since_launch(t_common *common)
 
 void	is_thinking(t_philo *philo)
 {
+	printf("%zu %d is thinking\n", time_since_launch(philo->common), philo->philo_id);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		printf("%zu %d is thinking\n", time_since_launch(philo->common), philo->philo_id);
 		if (check_fork_avalable(philo))
 		{
 			philo->dead_line = time_since_launch(philo->common) + philo->common->time_to_die;
@@ -50,7 +50,7 @@ void	is_thinking(t_philo *philo)
 		if (time_since_launch(philo->common) >= philo->dead_line)
 		{
 			set_data_mutex(&philo->common->stop, 1);
-			printf(RED"%zu %d is dead\n"RESET, time_since_launch(philo->common), philo->philo_id);
+			printf("%zu %d died\n", time_since_launch(philo->common), philo->philo_id);
 			break;
 		}
 		usleep(500);
@@ -90,6 +90,14 @@ void	is_eating(t_philo *philo)
 	{
 		if (time_since_launch(philo->common) >= philo->end_of_meal)
 		{
+			philo->nb_meal++;
+			if (philo->common->nb_must_eat >= 0)
+			{
+				if (philo->nb_meal == philo->common->nb_must_eat)
+					set_data_mutex(&philo->common->all_philo_satiated, philo->common->all_philo_satiated.data + 1);
+				if (get_data_mutex(&philo->common->all_philo_satiated) == philo->common->nb_philo)
+					set_data_mutex(&philo->common->stop, 1);
+			}
 			set_data_mutex(&philo->left_fork->avalable, 1);
 			set_data_mutex(&philo->right_fork->avalable, 1);
 			philo->left_fork->locked_by = 0;
