@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 10:21:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:03:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	init_mutex_common(t_common *common)
 	return (1);
 }
 
-int	get_data_mutex(t_shared *data_shared)
+size_t	get_data_mutex(t_shared *data_shared)
 {
-	int data;
+	size_t data;
 
 	pthread_mutex_lock(&data_shared->mutex);
 	data = data_shared->data;
@@ -38,7 +38,7 @@ int	get_data_mutex(t_shared *data_shared)
 	return (data);
 }
 
-void	set_data_mutex(t_shared *data_shared, int data)
+void	set_data_mutex(t_shared *data_shared, size_t data)
 {
 	pthread_mutex_lock(&data_shared->mutex);
 	data_shared->data = data;

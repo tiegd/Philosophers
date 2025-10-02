@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 15:14:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:04:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ struct t_philo;
 typedef struct	s_shared
 {
 	// uint32_t		data; //on ne dépasse jamais 32 bit 
-	int				data;
+	size_t			data;
 	uint8_t			state;
 	pthread_mutex_t	mutex;
 }					t_shared;
@@ -51,7 +51,7 @@ typedef struct	s_common
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
 	// struct timezone	tz;
-	int				nb_philo;
+	size_t			nb_philo;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
@@ -69,12 +69,12 @@ typedef struct	s_philo
 	int				is_thinking;
 	int				is_eating;
 	int				is_sleeping;
-	int				last_meal;
-	int				time_diff;
-	int				end_of_meal;
-	int				end_of_sleeping;
-	int				dead_line;
-	bool			stop;
+	size_t			last_meal;
+	// int				time_diff;
+	size_t			end_of_meal;
+	size_t			end_of_sleeping;
+	size_t			dead_line;
+	// bool			stop;
 }					t_philo;
 
 
@@ -110,8 +110,8 @@ void		philo_action(t_philo *philo);
 
 /*-----------MANAGE_MUTEX-----------*/
 
-int			get_data_mutex(t_shared *data_shared);
-void		set_data_mutex(t_shared *data_shared, int data);
+size_t		get_data_mutex(t_shared *data_shared);
+void		set_data_mutex(t_shared *data_shared, size_t data);
 
 /*-----------HANDLE_THREAD-----------*/
 
