@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 19:15:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:16:36 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ void	wait_launch(t_philo *philo)
 		{
 			if (get_data_mutex(&philo->common->begin_simulation) == 0)
 			{
-				gettimeofday(&philo->common->tv, NULL);
-				set_data_mutex(&philo->common->begin_simulation, philo->common->tv.tv_usec);
+				// gettimeofday(&philo->common->tv, NULL);
+				// set_data_mutex(&philo->common->begin_simulation, philo->common->tv.tv_usec);
+				set_data_mutex(&philo->common->begin_simulation, get_curent_time(philo->common));
 			}
 			pthread_mutex_unlock(&philo->common->count_start.mutex);
 			break;
 		}
 		pthread_mutex_unlock(&philo->common->count_start.mutex);
-		usleep(500);
+		usleep(400);
 	}
 }
 
@@ -46,8 +47,16 @@ void	*routine(void *data)
 	i = 0;
 	philo = (t_philo *)data;
 	wait_launch(philo);
-	philo->last_meal = philo->common->begin_simulation.data;
+	// philo->last_meal = philo->common->tv.tv_usec - philo->common->begin_simulation.data;
+	// philo->dead_line = philo->common->begin_simulation.data + philo->common->time_to_die;
+	philo->last_meal = get_curent_time(philo->common) - philo->common->begin_simulation.data;
+	printf(BLUE"philo->last_meal = %d\n"RESET, philo->last_meal);
 	philo->dead_line = philo->common->begin_simulation.data + philo->common->time_to_die;
+	if (philo->philo_id % 2 != 0)
+	{
+		printf(RED"philo %d is waiting\n"RESET, philo->philo_id);
+		usleep(philo->common->time_to_eat / 2);
+	}
 	philo_action(philo);
 	if (get_data_mutex(&philo->common->stop) == 1)
 		return (NULL);

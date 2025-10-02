@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/01 19:05:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:14:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ typedef struct	s_common
 	struct timeval	tv;
 	// struct timezone	tz;
 	int				nb_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
 	int				nb_must_eat;
 }					t_common;
 
@@ -84,6 +84,9 @@ t_common	init_common(int ac, char **av);
 t_fork		*init_forks(t_common *common);
 t_philo		*init_philos(t_common *common, t_fork *tab_fork);
 int			init_mutex_common(t_common *common);
+
+size_t		time_since_launch(t_common *common);
+size_t		get_curent_time(t_common *common);
 
 /*-----------PARSING-----------*/
 
