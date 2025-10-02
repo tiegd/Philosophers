@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:04:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:44:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,10 @@ typedef struct	s_philo
 	t_fork			*left_fork; //nb_philo + 1
 	t_fork			*right_fork; //nb_philo
 	int				philo_id;
-	int				is_thinking;
-	int				is_eating;
-	int				is_sleeping;
 	size_t			last_meal;
-	// int				time_diff;
 	size_t			end_of_meal;
 	size_t			end_of_sleeping;
 	size_t			dead_line;
-	// bool			stop;
 }					t_philo;
 
 

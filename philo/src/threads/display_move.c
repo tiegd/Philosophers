@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:42:30 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 14:13:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:40:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 
 void	philo_action(t_philo *philo)
 {
-	// gettimeofday(&philo->common->tv, NULL);
-	// if (philo->philo_id % 2 != 0)
-	// {
-	// 	printf(RED"philo %d is waiting\n"RESET, philo->philo_id);
-	// 	usleep(philo->common->time_to_eat / 2);
-	// }
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (get_data_mutex(&philo->common->stop) == 0)
