@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 17:21:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:39:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 int	check_nb_philo(char *s)
 {
-	// if (ft_strcmp(s, "1\0") == 0)
-	// {
-	// 	printf("Only one philo can't eat\n");
-	// 	return (0);
-	// }
 	if (ft_strcmp(s, "0\0") == 0)
 	{
 		printf("There is no philosopher\n");

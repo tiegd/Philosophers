@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 10:34:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:56:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void	is_thinking(t_philo *philo)
 
 int	check_fork_avalable(t_philo *philo)
 {
-	if (get_data_mutex(&philo->left_fork->avalable) == 1)
+	if (get_data_mutex(&philo->left_fork->avalable) == 1 && philo->left_fork->id_fork != 0)
 	{
 		set_data_mutex(&philo->left_fork->avalable, 0);
 		philo->left_fork->locked_by = philo->philo_id;
 		printf("%zu %d has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
 	}
-	if (get_data_mutex(&philo->right_fork->avalable) == 1)
+	if (get_data_mutex(&philo->right_fork->avalable) == 1 && philo->right_fork->id_fork != 0)
 	{
 		set_data_mutex(&philo->right_fork->avalable, 0);
 		philo->right_fork->locked_by = philo->philo_id;
@@ -75,11 +75,14 @@ int	check_fork_avalable(t_philo *philo)
 	}
 	if (get_data_mutex(&philo->left_fork->avalable) == 0 && get_data_mutex(&philo->right_fork->avalable) == 0)
 	{
-		if (philo->left_fork->locked_by == philo->philo_id && philo->right_fork->locked_by == philo->philo_id)
+		if (philo->left_fork->id_fork != philo->right_fork->id_fork)
 		{
-			philo->last_meal = time_since_launch(philo->common);
-			philo->end_of_meal = philo->last_meal + philo->common->time_to_eat;
-			return (1);
+			if (philo->left_fork->locked_by == philo->philo_id && philo->right_fork->locked_by == philo->philo_id)
+			{
+				philo->last_meal = time_since_launch(philo->common);
+				philo->end_of_meal = philo->last_meal + philo->common->time_to_eat;
+				return (1);
+			}
 		}
 	}
 	return (0);
