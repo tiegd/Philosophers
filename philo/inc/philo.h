@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 12:26:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:00:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct	s_common
 typedef struct	s_philo
 {
 	pthread_t		tid;
-	t_shared		philo_mutex;
 	t_common		*common;
 	t_fork			*left_fork; //nb_philo + 1
 	t_fork			*right_fork; //nb_philo

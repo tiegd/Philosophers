@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 12:46:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:00:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	destroy_all_mutex(t_common *common)
 	i = 0;
 	while (i < common->nb_philo)
 	{
-		printf(GREEN"i = %zu\n"RESET, i);
 		pthread_mutex_destroy(&common->head_tab_fork[i].avalable.mutex);
-		pthread_mutex_destroy(&common->head_tab_philo[i].philo_mutex.mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&common->stop.mutex);
