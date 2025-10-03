@@ -6,13 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/02 19:06:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:34:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 
 size_t	get_curent_time(t_common *common)
 {
@@ -42,6 +43,7 @@ void	is_thinking(t_philo *philo)
 	printf("%zu %d is thinking\n", time_since_launch(philo->common), philo->philo_id);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
+		// printf(RED"philo->dead_line = %zu\n"RESET, philo->dead_line);
 		if (check_fork_avalable(philo))
 		{
 			philo->dead_line = time_since_launch(philo->common) + philo->common->time_to_die;
@@ -53,7 +55,7 @@ void	is_thinking(t_philo *philo)
 			printf("%zu %d died\n", time_since_launch(philo->common), philo->philo_id);
 			break;
 		}
-		usleep(500);
+		usleep(400);
 	}
 }
 
