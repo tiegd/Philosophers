@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 11:33:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:37:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	parsing(int ac, char **av)
 		return (0);
 	}
 	wait_threads_end(tab_philo);
+	destroy_all_mutex(&common);
+	// print_tab_in_common(&common);
 	free_all(tab_philo, tab_fork);
 	return (1);
 }

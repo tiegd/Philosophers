@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 10:56:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:32:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ size_t	time_since_launch(t_common *common)
 
 void	is_thinking(t_philo *philo)
 {
-	printf("%zu %d is thinking\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_lock(&philo->common->printf_mutex);
+	printf("%zu %zu is thinking\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_unlock(&philo->common->printf_mutex);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		// printf(RED"philo->dead_line = %zu\n"RESET, philo->dead_line);
 		if (check_fork_avalable(philo))
 		{
 			philo->dead_line = time_since_launch(philo->common) + philo->common->time_to_die;
@@ -52,7 +53,9 @@ void	is_thinking(t_philo *philo)
 		if (time_since_launch(philo->common) >= philo->dead_line)
 		{
 			set_data_mutex(&philo->common->stop, 1);
-			printf("%zu %d died\n", time_since_launch(philo->common), philo->philo_id);
+			pthread_mutex_lock(&philo->common->printf_mutex);
+			printf("%zu %zu died\n", time_since_launch(philo->common), philo->philo_id);
+			pthread_mutex_unlock(&philo->common->printf_mutex);
 			break;
 		}
 		usleep(400);
@@ -64,20 +67,24 @@ int	check_fork_avalable(t_philo *philo)
 	if (get_data_mutex(&philo->left_fork->avalable) == 1 && philo->left_fork->id_fork != 0)
 	{
 		set_data_mutex(&philo->left_fork->avalable, 0);
-		philo->left_fork->locked_by = philo->philo_id;
-		printf("%zu %d has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
+		set_data_mutex(&philo->left_fork->locked_by, philo->philo_id);
+		pthread_mutex_lock(&philo->common->printf_mutex);
+		printf("%zu %zu has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
+		pthread_mutex_unlock(&philo->common->printf_mutex);
 	}
 	if (get_data_mutex(&philo->right_fork->avalable) == 1 && philo->right_fork->id_fork != 0)
 	{
 		set_data_mutex(&philo->right_fork->avalable, 0);
-		philo->right_fork->locked_by = philo->philo_id;
-		printf("%zu %d has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
+		set_data_mutex(&philo->right_fork->locked_by, philo->philo_id);
+		pthread_mutex_lock(&philo->common->printf_mutex);
+		printf("%zu %zu has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
+		pthread_mutex_unlock(&philo->common->printf_mutex);
 	}
 	if (get_data_mutex(&philo->left_fork->avalable) == 0 && get_data_mutex(&philo->right_fork->avalable) == 0)
 	{
 		if (philo->left_fork->id_fork != philo->right_fork->id_fork)
 		{
-			if (philo->left_fork->locked_by == philo->philo_id && philo->right_fork->locked_by == philo->philo_id)
+			if (get_data_mutex(&philo->left_fork->locked_by) == philo->philo_id && get_data_mutex(&philo->right_fork->locked_by) == philo->philo_id)
 			{
 				philo->last_meal = time_since_launch(philo->common);
 				philo->end_of_meal = philo->last_meal + philo->common->time_to_eat;
@@ -90,7 +97,9 @@ int	check_fork_avalable(t_philo *philo)
 
 void	is_eating(t_philo *philo)
 {
-	printf("%zu %d is eating\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_lock(&philo->common->printf_mutex);
+	printf("%zu %zu is eating\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_unlock(&philo->common->printf_mutex);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (time_since_launch(philo->common) >= philo->end_of_meal)
@@ -105,8 +114,8 @@ void	is_eating(t_philo *philo)
 			}
 			set_data_mutex(&philo->left_fork->avalable, 1);
 			set_data_mutex(&philo->right_fork->avalable, 1);
-			philo->left_fork->locked_by = 0;
-			philo->right_fork->locked_by = 0;
+			set_data_mutex(&philo->left_fork->locked_by, 0);
+			set_data_mutex(&philo->right_fork->locked_by, 0);
 			philo->end_of_sleeping = time_since_launch(philo->common) + philo->common->time_to_sleep;
 			break;
 		}
@@ -116,7 +125,9 @@ void	is_eating(t_philo *philo)
 
 void	is_sleeping(t_philo *philo)
 {
-	printf("%zu %d is sleeping\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_lock(&philo->common->printf_mutex);
+	printf("%zu %zu is sleeping\n", time_since_launch(philo->common), philo->philo_id);
+	pthread_mutex_unlock(&philo->common->printf_mutex);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (time_since_launch(philo->common) >= philo->end_of_sleeping)
