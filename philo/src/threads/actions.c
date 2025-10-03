@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 12:32:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:44:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	is_thinking(t_philo *philo)
 			pthread_mutex_unlock(&philo->common->printf_mutex);
 			break;
 		}
-		usleep(400);
+		usleep(500);
 	}
 }
 
@@ -102,6 +102,16 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->common->printf_mutex);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
+		if (get_data_mutex(&philo->common->stop) == 1)
+			break;
+		if (time_since_launch(philo->common) >= philo->dead_line)
+		{
+			set_data_mutex(&philo->common->stop, 1);
+			pthread_mutex_lock(&philo->common->printf_mutex);
+			printf("%zu %zu died\n", time_since_launch(philo->common), philo->philo_id);
+			pthread_mutex_unlock(&philo->common->printf_mutex);
+			break;
+		}
 		if (time_since_launch(philo->common) >= philo->end_of_meal)
 		{
 			philo->nb_meal++;
