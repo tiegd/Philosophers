@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 10:57:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:33:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
+#include<limits.h>
 
 int	ft_isdigit(int c)
 {
@@ -37,6 +38,24 @@ int	is_valid(char *s)
 	return (1);
 }
 
+int	is_overflow(const char *nptr)
+{
+	int	count;
+
+	count = 0;
+	while ((*nptr >= '0' && *nptr <= '9') && *nptr != '\0')
+	{
+		count = (count * 10) + (*nptr - '0');
+		if ((unsigned long long) count > INT_MAX)
+		{
+			printf("One or more argument is too big\n");
+			return (1);
+		}
+		nptr++;
+	}
+	return (0);
+}
+
 int	check_args(int ac, char **av)
 {
 	int	i;
@@ -49,6 +68,8 @@ int	check_args(int ac, char **av)
 	while (av[i])
 	{
 		if (!is_valid(av[i]))
+			return (0);
+		if (is_overflow(av[i]))
 			return (0);
 		i++;
 	}

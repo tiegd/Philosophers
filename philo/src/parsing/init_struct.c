@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 10:56:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:00:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_fork	*init_forks(t_common *common)
 		i++;
 		j++;
 	}
-	// print_tab_fork(tab_fork, *common);
 	common->head_tab_fork = tab_fork;
 	return (tab_fork);
 }
@@ -77,7 +76,6 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 		tab_philo[i].nb_meal = 0;
 		i++;
 	}
-	// print_tab_philo(tab_philo, *common);
 	common->head_tab_philo = tab_philo;
 	return (tab_philo);
 }
