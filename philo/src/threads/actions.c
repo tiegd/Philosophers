@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 13:44:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:06:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->common->printf_mutex);
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		if (get_data_mutex(&philo->common->stop) == 1)
-			break;
+		// printf(BLUE"philo[%zu] is eating\n"RESET, philo->philo_id);
+		// printf("stop = %zu\n", philo->common->stop.data);
 		if (time_since_launch(philo->common) >= philo->dead_line)
 		{
 			set_data_mutex(&philo->common->stop, 1);
@@ -131,6 +131,7 @@ void	is_eating(t_philo *philo)
 		}
 		usleep(500);
 	}
+	// printf("halo pilo_id = %zu\n", philo->philo_id);
 }
 
 void	is_sleeping(t_philo *philo)
