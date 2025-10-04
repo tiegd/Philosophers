@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 14:06:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:06:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ size_t	time_since_launch(t_common *common)
 
 void	is_thinking(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->printf_mutex);
-	printf("%zu %zu is thinking\n", time_since_launch(philo->common), philo->philo_id);
-	pthread_mutex_unlock(&philo->common->printf_mutex);
+	mutex_print(philo, "is thinking");
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (check_fork_avalable(philo))
@@ -53,9 +51,7 @@ void	is_thinking(t_philo *philo)
 		if (time_since_launch(philo->common) >= philo->dead_line)
 		{
 			set_data_mutex(&philo->common->stop, 1);
-			pthread_mutex_lock(&philo->common->printf_mutex);
-			printf("%zu %zu died\n", time_since_launch(philo->common), philo->philo_id);
-			pthread_mutex_unlock(&philo->common->printf_mutex);
+			mutex_print(philo, "died");
 			break;
 		}
 		usleep(500);
@@ -68,17 +64,13 @@ int	check_fork_avalable(t_philo *philo)
 	{
 		set_data_mutex(&philo->left_fork->avalable, 0);
 		set_data_mutex(&philo->left_fork->locked_by, philo->philo_id);
-		pthread_mutex_lock(&philo->common->printf_mutex);
-		printf("%zu %zu has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
-		pthread_mutex_unlock(&philo->common->printf_mutex);
+		mutex_print(philo, "has taken a fork");
 	}
 	if (get_data_mutex(&philo->right_fork->avalable) == 1 && philo->right_fork->id_fork != 0)
 	{
 		set_data_mutex(&philo->right_fork->avalable, 0);
 		set_data_mutex(&philo->right_fork->locked_by, philo->philo_id);
-		pthread_mutex_lock(&philo->common->printf_mutex);
-		printf("%zu %zu has taken a fork\n", time_since_launch(philo->common), philo->philo_id);
-		pthread_mutex_unlock(&philo->common->printf_mutex);
+		mutex_print(philo, "has taken a fork");
 	}
 	if (get_data_mutex(&philo->left_fork->avalable) == 0 && get_data_mutex(&philo->right_fork->avalable) == 0)
 	{
@@ -95,21 +87,23 @@ int	check_fork_avalable(t_philo *philo)
 	return (0);
 }
 
+void	re_init_values(t_philo *philo)
+{
+	set_data_mutex(&philo->left_fork->avalable, 1);
+	set_data_mutex(&philo->right_fork->avalable, 1);
+	set_data_mutex(&philo->left_fork->locked_by, 0);
+	set_data_mutex(&philo->right_fork->locked_by, 0);
+}
+
 void	is_eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->printf_mutex);
-	printf("%zu %zu is eating\n", time_since_launch(philo->common), philo->philo_id);
-	pthread_mutex_unlock(&philo->common->printf_mutex);
+	mutex_print(philo, "is eating");
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
-		// printf(BLUE"philo[%zu] is eating\n"RESET, philo->philo_id);
-		// printf("stop = %zu\n", philo->common->stop.data);
 		if (time_since_launch(philo->common) >= philo->dead_line)
 		{
 			set_data_mutex(&philo->common->stop, 1);
-			pthread_mutex_lock(&philo->common->printf_mutex);
-			printf("%zu %zu died\n", time_since_launch(philo->common), philo->philo_id);
-			pthread_mutex_unlock(&philo->common->printf_mutex);
+			mutex_print(philo, "died");
 			break;
 		}
 		if (time_since_launch(philo->common) >= philo->end_of_meal)
@@ -122,23 +116,17 @@ void	is_eating(t_philo *philo)
 				if (get_data_mutex(&philo->common->all_philo_satiated) == philo->common->nb_philo)
 					set_data_mutex(&philo->common->stop, 1);
 			}
-			set_data_mutex(&philo->left_fork->avalable, 1);
-			set_data_mutex(&philo->right_fork->avalable, 1);
-			set_data_mutex(&philo->left_fork->locked_by, 0);
-			set_data_mutex(&philo->right_fork->locked_by, 0);
+			re_init_values(philo);
 			philo->end_of_sleeping = time_since_launch(philo->common) + philo->common->time_to_sleep;
 			break;
 		}
 		usleep(500);
 	}
-	// printf("halo pilo_id = %zu\n", philo->philo_id);
 }
 
 void	is_sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->common->printf_mutex);
-	printf("%zu %zu is sleeping\n", time_since_launch(philo->common), philo->philo_id);
-	pthread_mutex_unlock(&philo->common->printf_mutex);
+	mutex_print(philo, "is sleeping");
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
 		if (time_since_launch(philo->common) >= philo->end_of_sleeping)

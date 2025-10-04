@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 13:00:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 12:55:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ struct t_philo;
 
 typedef struct	s_shared
 {
-	// uint32_t		data; //on ne dépasse jamais 32 bit 
 	size_t			data;
 	uint8_t			state;
 	pthread_mutex_t	mutex;
@@ -39,20 +38,17 @@ typedef struct	s_fork
 	t_shared		avalable;
 	int				id_fork;
 	t_shared		locked_by;
-	// int				locked_by;
-	// int				avalable;
 }					t_fork;
 
 typedef struct	s_common
 {
+	t_shared		start;
 	t_shared		stop;
-	t_shared		count_start;
 	t_shared		begin_simulation;
 	pthread_mutex_t	printf_mutex;
 	struct s_philo	*head_tab_philo;
 	t_fork			*head_tab_fork;
 	struct timeval	tv;
-	// struct timezone	tz;
 	size_t			nb_philo;
 	size_t			time_to_die;
 	size_t			time_to_eat;
@@ -65,8 +61,8 @@ typedef struct	s_philo
 {
 	pthread_t		tid;
 	t_common		*common;
-	t_fork			*left_fork; //nb_philo + 1
-	t_fork			*right_fork; //nb_philo
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 	size_t			philo_id;
 	size_t			nb_meal;
 	size_t			last_meal;
@@ -103,9 +99,8 @@ void		print_tab_in_common(t_common *common);
 
 /*-----------UTILS-----------*/
 
-// void		display_philo(t_philo *philo);
-// void		display_action(t_philo *philo);
 void		philo_action(t_philo *philo);
+void		mutex_print(t_philo *philo, char *s);
 
 /*-----------MANAGE_MUTEX-----------*/
 
@@ -117,7 +112,6 @@ void		destroy_all_mutex(t_common *common);
 
 int			launch_threads(t_common *common);
 void		wait_threads_end(t_philo *tab_philo);
-void		wait_launch(t_philo *philo);
 void		*routine(void *data);
 
 void		is_thinking(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:42:30 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 14:02:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 12:55:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
+
+void	mutex_print(t_philo *philo, char *s)
+{
+	pthread_mutex_lock(&philo->common->printf_mutex);
+	printf("%zu %zu %s\n", time_since_launch(philo->common), philo->philo_id, s);
+	pthread_mutex_unlock(&philo->common->printf_mutex);
+}
 
 void	philo_action(t_philo *philo)
 {
@@ -26,6 +33,5 @@ void	philo_action(t_philo *philo)
 		if (get_data_mutex(&philo->common->stop) == 0)
 			is_sleeping(philo);
 		usleep(500);
-		// printf("philo[%zu]; stop = %zu\n", philo->philo_id, philo->common->stop.data);
 	}
 }
