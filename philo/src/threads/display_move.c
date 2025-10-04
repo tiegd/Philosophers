@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:42:30 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 12:55:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:11:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 void	mutex_print(t_philo *philo, char *s)
 {
 	pthread_mutex_lock(&philo->common->printf_mutex);
-	printf("%zu %zu %s\n", time_since_launch(philo->common), philo->philo_id, s);
+	printf("%zu %zu %s\n", time_since_launch(philo->common),
+		philo->philo_id, s);
 	pthread_mutex_unlock(&philo->common->printf_mutex);
 }
 

@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/26 11:08:42 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/10/04 14:27:35 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,9 @@ SRC =	main.c	\
 		threads/display_move.c	\
 		threads/handle_threads.c	\
 		threads/actions.c	\
+		threads/eating.c	\
 		clean.c	\
-		print_test.c	\
+		manage_time.c	\
 
 OBJ = $(SRC: .c=.o)
 OBJ := $(addprefix $(BIN), $(SRC:.c=.o))

@@ -6,13 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 12:37:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:01:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-#include<limits.h>
+#include <limits.h>
 
 int	ft_isdigit(int c)
 {
@@ -56,7 +56,7 @@ int	is_overflow(const char *nptr)
 	return (0);
 }
 
-int	check_args(int ac, char **av)
+static int	check_args(int ac, char **av)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ int	check_args(int ac, char **av)
 
 int	parsing(int ac, char **av)
 {
-	t_common 	common;
+	t_common	common;
 	t_fork		*tab_fork;
 	t_philo		*tab_philo;
 
@@ -96,7 +96,6 @@ int	parsing(int ac, char **av)
 	}
 	wait_threads_end(tab_philo);
 	destroy_all_mutex(&common);
-	// print_tab_in_common(&common);
 	free_all(tab_philo, tab_fork);
 	return (1);
 }

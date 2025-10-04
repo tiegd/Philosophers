@@ -6,14 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 13:34:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:29:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
-#include <stdio.h>
-#include <sys/time.h>
 
 static void	my_usleep(t_philo *philo, size_t time)
 {
@@ -23,12 +21,12 @@ static void	my_usleep(t_philo *philo, size_t time)
 	while (get_curent_time(philo->common) < end)
 	{
 		if (get_data_mutex(&philo->common->stop) == 1)
-			break;
+			break ;
 		usleep(400);
 	}
 }
 
-void	*routine(void *data)
+static void	*routine(void *data)
 {
 	t_philo			*philo;
 	int				i;
@@ -40,7 +38,7 @@ void	*routine(void *data)
 	philo->last_meal = time_since_launch(philo->common);
 	philo->dead_line = philo->last_meal + philo->common->time_to_die;
 	if (philo->philo_id % 2 != 0)
-		my_usleep(philo, (philo->common->time_to_eat / 2));// * 1000);
+		my_usleep(philo, (philo->common->time_to_eat / 2));
 	philo_action(philo);
 	if (get_data_mutex(&philo->common->stop) == 1)
 		return (NULL);
@@ -59,7 +57,8 @@ int	launch_threads(t_common *common)
 	pthread_mutex_lock(&common->start.mutex);
 	while (i <= nb_philo_cp - 1)
 	{
-		if (pthread_create(&tab_philo[i].tid, NULL, &routine, &tab_philo[i]) != 0)
+		if (pthread_create(&tab_philo[i].tid, NULL, &routine,
+				&tab_philo[i]) != 0)
 		{
 			free_all(tab_philo, common->head_tab_fork);
 			return (0);
@@ -76,7 +75,7 @@ void	wait_threads_end(t_philo *tab_philo)
 {
 	int	i;
 	int	nb_philo_cp;
-	
+
 	i = 0;
 	nb_philo_cp = tab_philo->common->nb_philo;
 	while (i <= nb_philo_cp - 1)

@@ -6,16 +6,16 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 10:39:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:02:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
-#include <pthread.h>
+// #include <pthread.h>
 #include <stdio.h>
 
-int check_nb_args(int ac)
+int	check_nb_args(int ac)
 {
 	if (ac < 5 || ac > 6)
 	{
@@ -25,7 +25,7 @@ int check_nb_args(int ac)
 	return (1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+static int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 

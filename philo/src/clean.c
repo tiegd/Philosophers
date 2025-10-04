@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 12:30:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:57:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	destroy_all_mutex(t_common *common)
 		i++;
 	}
 	pthread_mutex_destroy(&common->stop.mutex);
-	// pthread_mutex_destroy(&common->count_start.mutex);
 	pthread_mutex_destroy(&common->start.mutex);
 	pthread_mutex_destroy(&common->begin_simulation.mutex);
 	pthread_mutex_destroy(&common->all_philo_satiated.mutex);

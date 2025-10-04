@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 13:00:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:59:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	init_mutex_common(t_common *common)
 {
 	if (pthread_mutex_init(&common->start.mutex, NULL) != 0)
-		return(0);
+		return (0);
 	if (pthread_mutex_init(&common->stop.mutex, NULL) != 0)
 		return (0);
 	if (pthread_mutex_init(&common->begin_simulation.mutex, NULL) != 0)
@@ -35,7 +35,7 @@ int	init_mutex_common(t_common *common)
 
 size_t	get_data_mutex(t_shared *data_shared)
 {
-	size_t data;
+	size_t	data;
 
 	pthread_mutex_lock(&data_shared->mutex);
 	data = data_shared->data;

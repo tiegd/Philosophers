@@ -6,13 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 13:00:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:10:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 t_common	init_common(int ac, char **av)
@@ -35,7 +34,7 @@ t_fork	*init_forks(t_common *common)
 {
 	int		j;
 	size_t	i;
-    t_fork	*tab_fork;
+	t_fork	*tab_fork;
 
 	i = 1;
 	j = 0;
