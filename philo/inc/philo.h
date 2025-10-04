@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 14:27:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:16:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ size_t		get_curent_time(t_common *common);
 
 /*-----------PARSING-----------*/
 
-int			parsing(int ac, char **av);
+// int			parsing(int ac, char **av);
+int			check_args(int ac, char **av);
 int			check_nb_args(int ac);
 int			check_nb_philo(char *s);
 int			ft_atoi(const char *nptr);
+int			is_zero(t_common *common);
 
 /*-----------MANAGE_MUTEX-----------*/
 
@@ -101,7 +103,7 @@ void		mutex_print(t_philo *philo, char *s);
 
 /*-----------CLEAN-----------*/
 
-void		free_all(t_philo *tab_philo, t_fork *tab_fork);
+void		free_all(t_common *common, t_philo *tab_philo, t_fork *tab_fork);
 void		destroy_all_mutex(t_common *common);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 13:57:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:12:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 #include <pthread.h>
 #include <stdio.h>
 
-void	free_all(t_philo *tab_philo, t_fork *tab_fork)
+void	free_all(t_common *common, t_philo *tab_philo, t_fork *tab_fork)
 {
+	wait_threads_end(tab_philo);
+	destroy_all_mutex(common);
 	free(tab_fork);
 	free(tab_philo);
 }

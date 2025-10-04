@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 14:10:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:10:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_fork	*init_forks(t_common *common)
 		return (NULL);
 	while (i <= common->nb_philo)
 	{
-		pthread_mutex_init(&tab_fork[j].avalable.mutex, NULL);
-		pthread_mutex_init(&tab_fork[j].locked_by.mutex, NULL);
+		pthread_mutex_init(&tab_fork[j].avalable.mutex, NULL);//verif
+		pthread_mutex_init(&tab_fork[j].locked_by.mutex, NULL);//verif
 		tab_fork[j].id_fork = i;
 		tab_fork[j].avalable.data = 1;
 		tab_fork[j].locked_by.data = 0;
@@ -63,7 +63,10 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 	i = 0;
 	tab_philo = malloc(common->nb_philo * sizeof(t_philo));
 	if (!tab_philo)
+	{
+		free(tab_fork);
 		return (NULL);
+	}
 	while (i <= common->nb_philo - 1)
 	{
 		tab_philo[i].common = common;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 14:29:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:37:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	*routine(void *data)
 	philo = (t_philo *)data;
 	pthread_mutex_lock(&philo->common->start.mutex);
 	pthread_mutex_unlock(&philo->common->start.mutex);
+	if (get_data_mutex(&philo->common->stop) == 1)
+		return (NULL);
 	philo->last_meal = time_since_launch(philo->common);
 	philo->dead_line = philo->last_meal + philo->common->time_to_die;
 	if (philo->philo_id % 2 != 0)
@@ -59,14 +61,15 @@ int	launch_threads(t_common *common)
 	{
 		if (pthread_create(&tab_philo[i].tid, NULL, &routine,
 				&tab_philo[i]) != 0)
-		{
-			free_all(tab_philo, common->head_tab_fork);
-			return (0);
-		}
+			{
+				tab_philo->common->nb_philo = i;
+				set_data_mutex(&common->stop, 1);
+				pthread_mutex_unlock(&common->start.mutex);
+				return (0);
+			}
 		i++;
 	}
-	if (get_data_mutex(&common->begin_simulation) == 0)
-		set_data_mutex(&common->begin_simulation, get_curent_time(common));
+	set_data_mutex(&common->begin_simulation, get_curent_time(common));
 	pthread_mutex_unlock(&common->start.mutex);
 	return (1);
 }

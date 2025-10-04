@@ -6,13 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 14:02:10 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:09:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
-// #include <pthread.h>
 #include <stdio.h>
 
 int	check_nb_args(int ac)
@@ -20,30 +19,6 @@ int	check_nb_args(int ac)
 	if (ac < 5 || ac > 6)
 	{
 		printf("Wrong number of arguments\n");
-		return (0);
-	}
-	return (1);
-}
-
-static int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (((unsigned char) s1[i] == (unsigned char) s2[i]))
-	{
-		if ((unsigned char) s1[i] == '\0')
-			return (0);
-		i++;
-	}
-	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
-}
-
-int	check_nb_philo(char *s)
-{
-	if (ft_strcmp(s, "0\0") == 0)
-	{
-		printf("There is no philosopher\n");
 		return (0);
 	}
 	return (1);
