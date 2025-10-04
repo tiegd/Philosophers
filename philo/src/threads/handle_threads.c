@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/03 14:12:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/04 12:10:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ void	wait_launch(t_philo *philo)
 	}
 }
 
+void	my_usleep(t_philo *philo, size_t time)
+{
+	size_t	i;
+
+	i = 400;
+	while (i < time)
+	{
+		if (get_data_mutex(&philo->common->stop) == 1)
+			break;
+		usleep(400);
+		i++;
+	}
+}
+
 void	*routine(void *data)
 {
 	t_philo			*philo;
@@ -48,7 +62,8 @@ void	*routine(void *data)
 	if (philo->philo_id % 2 != 0)
 	{
 		if (get_data_mutex(&philo->common->stop) == 0)
-			usleep((philo->common->time_to_eat / 2) * 1000);
+			my_usleep(philo, (philo->common->time_to_eat / 2) * 1000);
+			// usleep((philo->common->time_to_eat / 2) * 1000);
 	}
 	philo_action(philo);
 	if (get_data_mutex(&philo->common->stop) == 1)
