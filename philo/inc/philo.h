@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 10:38:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 12:08:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_common	init_common(int ac, char **av);
 t_fork		*init_forks(t_common *common);
 t_philo		*init_philos(t_common *common, t_fork *tab_fork);
 void		init_mutex_common(t_common *common);
+int			init_mutex_fork(t_common *common);
 
 /*-----------MANAGE_TIME-----------*/
 
@@ -108,6 +109,7 @@ void		mutex_print(t_philo *philo, char *s);
 
 void		free_all(t_common *common, t_philo *tab_philo, t_fork *tab_fork);
 void		destroy_fail_mutex(t_common *common);
+void		destroy_mutex_fork(t_common *common, size_t i, size_t nb);
 void		destroy_all_mutex(t_common *common);
 
 #endif

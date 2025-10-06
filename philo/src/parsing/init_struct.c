@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 10:59:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:27:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,26 @@ t_common	init_common(int ac, char **av)
 
 t_fork	*init_forks(t_common *common)
 {
-	int		j;
 	size_t	i;
 	t_fork	*tab_fork;
 
 	i = 1;
-	j = 0;
 	tab_fork = malloc(common->nb_philo * sizeof(t_fork));
 	if (!tab_fork)
 		return (NULL);
 	while (i <= common->nb_philo)
 	{
-		pthread_mutex_init(&tab_fork[j].avalable.mutex, NULL);//verif
-		pthread_mutex_init(&tab_fork[j].locked_by.mutex, NULL);//verif
-		tab_fork[j].id_fork = i;
-		tab_fork[j].avalable.data = 1;
-		tab_fork[j].locked_by.data = 0;
+		tab_fork[i - 1].id_fork = i;
+		tab_fork[i - 1].avalable.data = 1;
+		tab_fork[i - 1].locked_by.data = 0;
 		i++;
-		j++;
 	}
 	common->head_tab_fork = tab_fork;
+	if (!init_mutex_fork(common))
+	{
+		free(tab_fork);
+		return (NULL);
+	}
 	return (tab_fork);
 }
 

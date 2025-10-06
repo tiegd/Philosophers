@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 15:37:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:33:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int	launch_threads(t_common *common)
 	{
 		if (pthread_create(&tab_philo[i].tid, NULL, &routine,
 				&tab_philo[i]) != 0)
-			{
-				tab_philo->common->nb_philo = i;
-				set_data_mutex(&common->stop, 1);
-				pthread_mutex_unlock(&common->start.mutex);
-				return (0);
-			}
+		{
+			tab_philo->common->nb_philo = i;
+			set_data_mutex(&common->stop, 1);
+			pthread_mutex_unlock(&common->start.mutex);
+			return (0);
+		}
 		i++;
 	}
 	set_data_mutex(&common->begin_simulation, get_curent_time(common));

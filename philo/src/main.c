@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:50 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 09:45:23 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 12:07:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	main(int ac, char **av)
 	if (is_zero(&common))
 		return (1);
 	init_mutex_common(&common);
-	if (common.err_mut != 0)
-		return (1);
 	tab_fork = init_forks(&common);
 	if (!tab_fork)
+		return (1);
+	if (common.err_mut != 0)
 		return (1);
 	tab_philo = init_philos(&common, tab_fork);
 	if (!tab_philo)

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 11:02:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:31:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,47 @@
 #include <pthread.h>
 #include <stdio.h>
 
+int	init_mutex_fork(t_common *common)
+{
+	size_t	i;
+
+	i = 1;
+	while (i <= common->nb_philo)
+	{
+		if (pthread_mutex_init(&common->head_tab_fork[i - 1].avalable.mutex,
+				NULL) != 0)
+			return (0);
+		if (pthread_mutex_init(&common->head_tab_fork[i - 1].locked_by.mutex,
+				NULL) != 0)
+		{
+			destroy_mutex_fork(common, i - 1, 1);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	init_mutex_common(t_common *common)
 {
-	if (common->err_mut == 0 && pthread_mutex_init(&common->start.mutex, NULL) != 0)
+	if (common->err_mut == 0
+		&& pthread_mutex_init(&common->start.mutex, NULL) != 0)
 		destroy_fail_mutex(common);
 	common->nb_mutex++;
-	if (common->err_mut == 0 && pthread_mutex_init(&common->stop.mutex, NULL) != 0)
+	if (common->err_mut == 0
+		&& pthread_mutex_init(&common->stop.mutex, NULL) != 0)
 		destroy_fail_mutex(common);
 	common->nb_mutex++;
-	if (common->err_mut == 0 && pthread_mutex_init(&common->begin_simulation.mutex, NULL) != 0)
+	if (common->err_mut == 0
+		&& pthread_mutex_init(&common->begin_simulation.mutex, NULL) != 0)
 		destroy_fail_mutex(common);
 	common->nb_mutex++;
-	if (common->err_mut == 0 && pthread_mutex_init(&common->all_philo_satiated.mutex, NULL) != 0)
+	if (common->err_mut == 0
+		&& pthread_mutex_init(&common->all_philo_satiated.mutex, NULL) != 0)
 		destroy_fail_mutex(common);
 	common->nb_mutex++;
-	if (common->err_mut == 0 && pthread_mutex_init(&common->printf_mutex, NULL) != 0)
+	if (common->err_mut == 0
+		&& pthread_mutex_init(&common->printf_mutex, NULL) != 0)
 		destroy_fail_mutex(common);
 	common->nb_mutex++;
 }
