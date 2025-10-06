@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 13:31:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:06:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	init_mutex_common(t_common *common)
 	if (common->err_mut == 0
 		&& pthread_mutex_init(&common->printf_mutex, NULL) != 0)
 		destroy_fail_mutex(common);
-	common->nb_mutex++;
 }
 
 size_t	get_data_mutex(t_shared *data_shared)

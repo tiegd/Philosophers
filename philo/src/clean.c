@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 13:31:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:07:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	destroy_mutex_fork(t_common *common, size_t i, size_t nb)
 	size_t	j;
 
 	j = 0;
-	common->err_mut = 1;
 	while (j < i)
 	{
 		pthread_mutex_destroy(&common->head_tab_fork[j].avalable.mutex);
@@ -43,15 +42,11 @@ void	destroy_fail_mutex(t_common *common)
 {
 	common->err_mut = 1;
 	if (common->nb_mutex >= 1)
-		pthread_mutex_destroy(&common->stop.mutex);
-	if (common->nb_mutex >= 2)
 		pthread_mutex_destroy(&common->start.mutex);
+	if (common->nb_mutex >= 2)
+		pthread_mutex_destroy(&common->stop.mutex);
 	if (common->nb_mutex >= 3)
 		pthread_mutex_destroy(&common->begin_simulation.mutex);
-	if (common->nb_mutex >= 4)
-		pthread_mutex_destroy(&common->all_philo_satiated.mutex);
-	if (common->nb_mutex >= 5)
-		pthread_mutex_destroy(&common->printf_mutex);
 }
 
 void	destroy_all_mutex(t_common *common)
