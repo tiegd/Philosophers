@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 19:00:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 19:42:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void	check_left(t_philo *philo)
 {
@@ -75,7 +76,9 @@ void	is_sleeping(t_philo *philo)
 	t_common	*common;
 
 	common = philo->common;
-	mutex_print(philo, "is sleeping");
+	printf("common->all_philo_satiated.data = %zu\ncommon->nb_philo = %zu\n", common->all_philo_satiated.data, common->nb_philo);
+	if (common->all_philo_satiated.data != common->nb_philo)
+		mutex_print(philo, "is sleeping");
 	while (get_data_mutex(&common->stop) == 0)
 	{
 		if (time_since_launch(common) >= philo->dead_line)

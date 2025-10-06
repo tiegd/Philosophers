@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 19:10:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 19:30:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,10 @@ static void	*routine(void *data)
 	return (NULL);
 }
 
-// static void	monitor_routine()
-// {
-	
-// }
-
 int	launch_threads(t_common *common)
 {
 	int			i;
 	int			nb_philo_cp;
-	// pthread_t	monitor_tid;
 	t_philo		*tab_philo;
 
 	i = 0;
@@ -76,7 +70,6 @@ int	launch_threads(t_common *common)
 		}
 		i++;
 	}
-	// if (pthread_create(&monitor_tid, NULL, &monitor_routine, &common))
 	set_data_mutex(&common->begin_simulation, get_curent_time(common));
 	pthread_mutex_unlock(&common->start.mutex);
 	return (1);
