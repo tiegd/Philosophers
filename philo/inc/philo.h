@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 15:01:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 18:14:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		wait_threads_end(t_philo *tab_philo);
 
 /*-----------PHILO_ACTION-----------*/
 
-void		is_thinking(t_philo *philo);
+void		is_thinking(t_philo *philo, int init);
 void		is_eating(t_philo *philo);
 void		is_sleeping(t_philo *philo);
 int			can_eat(t_philo *philo);

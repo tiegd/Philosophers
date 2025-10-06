@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 15:04:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 19:10:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	my_usleep(t_philo *philo, size_t time)
 	{
 		if (get_data_mutex(&philo->common->stop) == 1)
 			break ;
-		usleep(400);
+		usleep(500);
 	}
 }
 
@@ -39,20 +39,26 @@ static void	*routine(void *data)
 		return (NULL);
 	philo->last_meal = time_since_launch(philo->common);
 	philo->dead_line = philo->last_meal + philo->common->time_to_die;
-	mutex_print(philo, "is_thinking");
+	mutex_print(philo, "is thinking");
 	if (philo->philo_id % 2 != 0)
-		my_usleep(philo, (philo->common->time_to_eat  - 10));
+		my_usleep(philo, (philo->common->time_to_eat / 2));
 	philo_action(philo, 0);
 	if (get_data_mutex(&philo->common->stop) == 1)
 		return (NULL);
 	return (NULL);
 }
 
+// static void	monitor_routine()
+// {
+	
+// }
+
 int	launch_threads(t_common *common)
 {
-	int		i;
-	int		nb_philo_cp;
-	t_philo	*tab_philo;
+	int			i;
+	int			nb_philo_cp;
+	// pthread_t	monitor_tid;
+	t_philo		*tab_philo;
 
 	i = 0;
 	tab_philo = common->head_tab_philo;
@@ -70,6 +76,7 @@ int	launch_threads(t_common *common)
 		}
 		i++;
 	}
+	// if (pthread_create(&monitor_tid, NULL, &monitor_routine, &common))
 	set_data_mutex(&common->begin_simulation, get_curent_time(common));
 	pthread_mutex_unlock(&common->start.mutex);
 	return (1);
