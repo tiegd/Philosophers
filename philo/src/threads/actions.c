@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 14:38:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 15:02:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	is_sleeping(t_philo *philo)
 		}
 		if (time_since_launch(philo->common) >= philo->end_of_sleeping)
 			return ;
-			
 		usleep(500);
 	}
 }
