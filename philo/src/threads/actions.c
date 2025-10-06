@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 14:28:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:38:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,15 @@ void	is_sleeping(t_philo *philo)
 	mutex_print(philo, "is sleeping");
 	while (get_data_mutex(&philo->common->stop) == 0)
 	{
+		if (time_since_launch(philo->common) >= philo->dead_line)
+		{
+			set_data_mutex(&philo->common->stop, 1);
+			mutex_print(philo, "died");
+			break ;
+		}
 		if (time_since_launch(philo->common) >= philo->end_of_sleeping)
 			return ;
+			
 		usleep(500);
 	}
 }
