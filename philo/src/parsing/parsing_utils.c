@@ -6,19 +6,35 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 17:09:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 10:46:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
+#include <unistd.h>
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}
 
 int	check_nb_args(int ac)
 {
 	if (ac < 5 || ac > 6)
 	{
-		printf("Wrong number of arguments\n");
+		ft_putstr_fd("Wrong number of arguments\n", 2);
 		return (0);
 	}
 	return (1);

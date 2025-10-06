@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/04 17:15:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/06 10:50:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_valid(char *s)
 	{
 		if (!ft_isdigit(s[i]))
 		{
-			printf("Input is not valid\n");
+			ft_putstr_fd("Input is not valid\n", 2);
 			return (0);
 		}
 		i++;
@@ -48,7 +48,7 @@ int	is_overflow(const char *nptr)
 		count = (count * 10) + (*nptr - '0');
 		if ((unsigned long long) count > INT_MAX)
 		{
-			printf("One or more argument is too big\n");
+			ft_putstr_fd("One or more argument is too big\n", 2);
 			return (1);
 		}
 		nptr++;
@@ -66,7 +66,10 @@ int	check_args(int ac, char **av)
 	while (av[i])
 	{
 		if (av[i][0] == '\0')
+		{
+			ft_putstr_fd("Input is not valid\n", 2);
 			return (0);
+		}
 		if (!is_valid(av[i]))
 			return (0);
 		if (is_overflow(av[i]))
@@ -79,12 +82,24 @@ int	check_args(int ac, char **av)
 int	is_zero(t_common *common)
 {
 	if (common->nb_philo == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
 		return (1);
+	}
 	if (common->time_to_die == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
 		return (1);
+	}
 	if (common->time_to_eat == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
 		return (1);
+	}
 	if (common->time_to_sleep == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
 		return (1);
+	}
 	return (0);
 }
