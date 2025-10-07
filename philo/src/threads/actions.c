@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 19:42:23 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 09:14:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ void	is_sleeping(t_philo *philo)
 	t_common	*common;
 
 	common = philo->common;
-	printf("common->all_philo_satiated.data = %zu\ncommon->nb_philo = %zu\n", common->all_philo_satiated.data, common->nb_philo);
-	if (common->all_philo_satiated.data != common->nb_philo)
-		mutex_print(philo, "is sleeping");
+	mutex_print(philo, "is sleeping");
 	while (get_data_mutex(&common->stop) == 0)
 	{
 		if (time_since_launch(common) >= philo->dead_line)
