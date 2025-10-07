@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:55 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 13:46:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 10:55:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_common	init_common(int ac, char **av)
 	common.stop.data = 0;
 	common.begin_simulation.data = 0;
 	if (ac == 6)
-		common.nb_must_eat = (size_t)ft_atoi(av[5]);
+		common.nb_must_eat = ft_atoi(av[5]);
 	else
 		common.nb_must_eat = -1;
 	return (common);
@@ -49,7 +49,6 @@ t_fork	*init_forks(t_common *common)
 	{
 		tab_fork[i - 1].id_fork = i;
 		tab_fork[i - 1].avalable.data = 1;
-		tab_fork[i - 1].locked_by.data = 0;
 		i++;
 	}
 	common->head_tab_fork = tab_fork;
@@ -59,6 +58,14 @@ t_fork	*init_forks(t_common *common)
 		return (NULL);
 	}
 	return (tab_fork);
+}
+
+static void	end_init_philo(t_philo *tab_philo, size_t i)
+{
+	tab_philo[i].philo_id = i + 1;
+	tab_philo[i].nb_meal = 0;
+	tab_philo[i].fork_left_av = 0;
+	tab_philo[i].fork_right_av = 0;
 }
 
 t_philo	*init_philos(t_common *common, t_fork *tab_fork)
@@ -81,8 +88,7 @@ t_philo	*init_philos(t_common *common, t_fork *tab_fork)
 			tab_philo[i].right_fork = &tab_fork[i - 1];
 		if (i == 0)
 			tab_philo[i].right_fork = &tab_fork[common->nb_philo - 1];
-		tab_philo[i].philo_id = i + 1;
-		tab_philo[i].nb_meal = 0;
+		end_init_philo(tab_philo, i);
 		i++;
 	}
 	common->head_tab_philo = tab_philo;

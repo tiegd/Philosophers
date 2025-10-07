@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:23:09 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 10:46:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 10:59:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ int	check_nb_args(int ac)
 		return (0);
 	}
 	return (1);
+}
+
+int	is_overflow(const char *nptr)
+{
+	int	count;
+
+	count = 0;
+	while ((*nptr >= '0' && *nptr <= '9') && *nptr != '\0')
+	{
+		count = (count * 10) + (*nptr - '0');
+		if ((unsigned long long) count > INT_MAX)
+		{
+			ft_putstr_fd("One or more argument is too big\n", 2);
+			return (1);
+		}
+		nptr++;
+	}
+	return (0);
 }
 
 int	ft_atoi(const char *nptr)

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 09:44:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:01:26 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	check_left(t_philo *philo)
 	if (philo->left_fork->avalable.data == 1)
 	{
 		philo->left_fork->avalable.data = 0;
-		// mutex_print(philo, "has taken a fork");
-		printf("philo nb %zu has taken fork %d\n", philo->philo_id, philo->left_fork->id_fork);
+		philo->fork_left_av = 1;
+		mutex_print(philo, "has taken a fork");
 	}
 	pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
 }
@@ -32,18 +32,19 @@ void	check_right(t_philo *philo)
 	if (philo->right_fork->avalable.data == 1)
 	{
 		philo->right_fork->avalable.data = 0;
-		// mutex_print(philo, "has taken a fork");
-		printf("philo nb %zu has taken fork %d\n", philo->philo_id, philo->right_fork->id_fork);
+		philo->fork_right_av = 1;
+		mutex_print(philo, "has taken a fork");
 	}
 	pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 }
 
 static int	check_fork_avalable(t_philo *philo)
 {
-	check_left(philo);
-	check_right(philo);
-	if (get_data_mutex(&philo->left_fork->avalable) == 0
-		&& get_data_mutex(&philo->right_fork->avalable) == 0)
+	if (philo->fork_left_av == 0)
+		check_left(philo);
+	if (philo->fork_right_av == 0)
+		check_right(philo);
+	if (philo->fork_left_av == 1 && philo->fork_right_av == 1)
 		return (can_eat(philo));
 	return (0);
 }
@@ -67,8 +68,6 @@ void	is_thinking(t_philo *philo, int init)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
-			pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
-			pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 			break ;
 		}
 		usleep(400);

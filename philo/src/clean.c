@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 18:04:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 14:07:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 10:47:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,6 @@ void	free_all(t_common *common, t_philo *tab_philo, t_fork *tab_fork)
 	destroy_all_mutex(common);
 	free(tab_fork);
 	free(tab_philo);
-}
-
-void	destroy_mutex_fork(t_common *common, size_t i, size_t nb)
-{
-	size_t	j;
-
-	j = 0;
-	while (j < i)
-	{
-		pthread_mutex_destroy(&common->head_tab_fork[j].avalable.mutex);
-		pthread_mutex_destroy(&common->head_tab_fork[j].locked_by.mutex);
-		j++;
-	}
-	if (nb == 1)
-		pthread_mutex_destroy(&common->head_tab_fork[j].avalable.mutex);
 }
 
 void	destroy_fail_mutex(t_common *common)

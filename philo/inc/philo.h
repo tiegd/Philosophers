@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 18:14:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:01:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_fork
 {
 	t_shared		avalable;
 	int				id_fork;
-	t_shared		locked_by;
 }					t_fork;
 
 typedef struct s_common
@@ -55,6 +54,8 @@ typedef struct s_philo
 	t_common		*common;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
+	size_t			fork_left_av;
+	size_t			fork_right_av;
 	size_t			philo_id;
 	size_t			nb_meal;
 	size_t			last_meal;
@@ -78,11 +79,10 @@ size_t		get_curent_time(t_common *common);
 
 /*-----------PARSING-----------*/
 
-// int			parsing(int ac, char **av);
 int			check_args(int ac, char **av);
 int			check_nb_args(int ac);
-int			check_nb_philo(char *s);
 int			ft_atoi(const char *nptr);
+int			is_overflow(const char *nptr);
 int			is_zero(t_common *common);
 void		ft_putstr_fd(char *s, int fd);
 

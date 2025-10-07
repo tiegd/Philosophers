@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:29:33 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 14:06:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 10:47:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ int	init_mutex_fork(t_common *common)
 		if (pthread_mutex_init(&common->head_tab_fork[i - 1].avalable.mutex,
 				NULL) != 0)
 			return (0);
-		if (pthread_mutex_init(&common->head_tab_fork[i - 1].locked_by.mutex,
-				NULL) != 0)
-		{
-			destroy_mutex_fork(common, i - 1, 1);
-			return (0);
-		}
 		i++;
 	}
 	return (1);

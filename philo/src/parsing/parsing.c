@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 10:17:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 13:44:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 10:59:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ int	is_valid(char *s)
 	return (1);
 }
 
-int	is_overflow(const char *nptr)
-{
-	int	count;
+// int	is_overflow(const char *nptr)
+// {
+// 	int	count;
 
-	count = 0;
-	while ((*nptr >= '0' && *nptr <= '9') && *nptr != '\0')
-	{
-		count = (count * 10) + (*nptr - '0');
-		if ((unsigned long long) count > INT_MAX)
-		{
-			ft_putstr_fd("One or more argument is too big\n", 2);
-			return (1);
-		}
-		nptr++;
-	}
-	return (0);
-}
+// 	count = 0;
+// 	while ((*nptr >= '0' && *nptr <= '9') && *nptr != '\0')
+// 	{
+// 		count = (count * 10) + (*nptr - '0');
+// 		if ((unsigned long long) count > INT_MAX)
+// 		{
+// 			ft_putstr_fd("One or more argument is too big\n", 2);
+// 			return (1);
+// 		}
+// 		nptr++;
+// 	}
+// 	return (0);
+// }
 
 int	check_args(int ac, char **av)
 {
@@ -79,6 +79,21 @@ int	check_args(int ac, char **av)
 	return (1);
 }
 
+int	is_zero_bis(t_common *common)
+{
+	if (common->time_to_sleep == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
+		return (1);
+	}
+	if (common->nb_must_eat == 0)
+	{
+		ft_putstr_fd("Input is not valid\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
 int	is_zero(t_common *common)
 {
 	if (common->nb_philo == 0)
@@ -92,11 +107,6 @@ int	is_zero(t_common *common)
 		return (1);
 	}
 	if (common->time_to_eat == 0)
-	{
-		ft_putstr_fd("Input is not valid\n", 2);
-		return (1);
-	}
-	if (common->time_to_sleep == 0)
 	{
 		ft_putstr_fd("Input is not valid\n", 2);
 		return (1);
