@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 09:14:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 09:44:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	check_left(t_philo *philo)
 	if (philo->left_fork->avalable.data == 1)
 	{
 		philo->left_fork->avalable.data = 0;
-		mutex_print(philo, "has taken a fork");
+		// mutex_print(philo, "has taken a fork");
+		printf("philo nb %zu has taken fork %d\n", philo->philo_id, philo->left_fork->id_fork);
 	}
 	pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
 }
@@ -31,7 +32,8 @@ void	check_right(t_philo *philo)
 	if (philo->right_fork->avalable.data == 1)
 	{
 		philo->right_fork->avalable.data = 0;
-		mutex_print(philo, "has taken a fork");
+		// mutex_print(philo, "has taken a fork");
+		printf("philo nb %zu has taken fork %d\n", philo->philo_id, philo->right_fork->id_fork);
 	}
 	pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 }
@@ -65,9 +67,11 @@ void	is_thinking(t_philo *philo, int init)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
+			pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
+			pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 			break ;
 		}
-		usleep(500);
+		usleep(400);
 	}
 }
 
@@ -87,6 +91,6 @@ void	is_sleeping(t_philo *philo)
 		}
 		if (time_since_launch(common) >= philo->end_of_sleeping)
 			return ;
-		usleep(500);
+		usleep(400);
 	}
 }

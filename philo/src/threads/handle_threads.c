@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/06 19:30:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 09:23:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	my_usleep(t_philo *philo, size_t time)
 	{
 		if (get_data_mutex(&philo->common->stop) == 1)
 			break ;
-		usleep(500);
+		usleep(400);
 	}
 }
 

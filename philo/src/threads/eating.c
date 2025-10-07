@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:25:34 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 09:13:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 09:42:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	can_eat(t_philo *philo)
 
 static void	re_init_values(t_philo *philo)
 {
-	set_data_mutex(&philo->left_fork->avalable, 1);
-	set_data_mutex(&philo->right_fork->avalable, 1);
+	// set_data_mutex(&philo->left_fork->avalable, 1);
+	// set_data_mutex(&philo->right_fork->avalable, 1);
+	philo->left_fork->avalable.data = 1;
+	philo->right_fork->avalable.data = 1;
+	pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
+	pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 }
 
 static void	count_philo_satiatates(t_philo *philo)
@@ -59,6 +63,8 @@ void	is_eating(t_philo *philo)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
+			pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
+			pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 			break ;
 		}
 		if (time_since_launch(common) >= philo->end_of_meal)
@@ -70,6 +76,6 @@ void	is_eating(t_philo *philo)
 				+ philo->common->time_to_sleep;
 			break ;
 		}
-		usleep(500);
+		usleep(400);
 	}
 }
