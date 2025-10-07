@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:25:34 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 11:01:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:53:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	can_eat(t_philo *philo)
 
 static void	re_init_values(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->left_fork->avalable.mutex);
 	philo->left_fork->avalable.data = 1;
+	pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
+	pthread_mutex_lock(&philo->right_fork->avalable.mutex);
 	philo->right_fork->avalable.data = 1;
+	pthread_mutex_unlock(&philo->right_fork->avalable.mutex);
 	philo->fork_left_av = 0;
 	philo->fork_right_av = 0;
 }
