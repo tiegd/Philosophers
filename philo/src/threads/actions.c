@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 11:01:26 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:14:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void	check_left(t_philo *philo)
+static void	check_left(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left_fork->avalable.mutex);
 	if (philo->left_fork->avalable.data == 1)
@@ -26,7 +26,7 @@ void	check_left(t_philo *philo)
 	pthread_mutex_unlock(&philo->left_fork->avalable.mutex);
 }
 
-void	check_right(t_philo *philo)
+static void	check_right(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork->avalable.mutex);
 	if (philo->right_fork->avalable.data == 1)
