@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:25:34 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 11:53:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:05:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	can_eat(t_philo *philo)
 {
 	if (philo->left_fork->id_fork != philo->right_fork->id_fork)
 	{
-		philo->last_meal = time_since_launch(philo->common);
+		philo->last_meal = time_since_launch(philo);
 		philo->end_of_meal = philo->last_meal
 			+ philo->common->time_to_eat;
 		return (1);
@@ -61,18 +61,18 @@ void	is_eating(t_philo *philo)
 	mutex_print(philo, "is eating");
 	while (get_data_mutex(&common->stop) == 0)
 	{
-		if (time_since_launch(common) >= philo->dead_line)
+		if (time_since_launch(philo) >= philo->dead_line)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
 			break ;
 		}
-		if (time_since_launch(common) >= philo->end_of_meal)
+		if (time_since_launch(philo) >= philo->end_of_meal)
 		{
 			philo->nb_meal++;
 			count_philo_satiatates(philo);
 			re_init_values(philo);
-			philo->end_of_sleeping = time_since_launch(common)
+			philo->end_of_sleeping = time_since_launch(philo)
 				+ philo->common->time_to_sleep;
 			break ;
 		}

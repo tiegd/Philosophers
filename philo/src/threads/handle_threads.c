@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 17:18:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 10:11:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:15:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	my_usleep(t_philo *philo, size_t time)
 {
 	size_t	end;
 
-	end = get_curent_time(philo->common) + time;
-	while (get_curent_time(philo->common) < end)
+	end = get_curent_time_philo(philo) + time;
+	while (get_curent_time_philo(philo) < end)
 	{
 		if (get_data_mutex(&philo->common->stop) == 1)
 			break ;
@@ -37,7 +37,7 @@ static void	*routine(void *data)
 	pthread_mutex_unlock(&philo->common->start.mutex);
 	if (get_data_mutex(&philo->common->stop) == 1)
 		return (NULL);
-	philo->last_meal = time_since_launch(philo->common);
+	philo->last_meal = time_since_launch(philo);
 	philo->dead_line = philo->last_meal + philo->common->time_to_die;
 	mutex_print(philo, "is thinking");
 	if (philo->philo_id % 2 == 0)
@@ -70,7 +70,7 @@ int	launch_threads(t_common *common)
 		}
 		i++;
 	}
-	set_data_mutex(&common->begin_simulation, get_curent_time(common));
+	set_data_mutex(&common->begin_simulation, get_curent_time_common(common));
 	pthread_mutex_unlock(&common->start.mutex);
 	return (1);
 }

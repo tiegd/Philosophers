@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 09:32:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 11:12:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:28:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_common
 typedef struct s_philo
 {
 	pthread_t		tid;
+	struct timeval	tv;
 	t_common		*common;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -74,8 +75,9 @@ int			init_mutex_fork(t_common *common);
 
 /*-----------MANAGE_TIME-----------*/
 
-size_t		time_since_launch(t_common *common);
-size_t		get_curent_time(t_common *common);
+size_t		time_since_launch(t_philo *philo);
+size_t		get_curent_time_philo(t_philo *philo);
+size_t		get_curent_time_common(t_common *common);
 
 /*-----------PARSING-----------*/
 

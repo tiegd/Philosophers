@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:03:20 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/10/07 11:14:33 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:05:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	is_thinking(t_philo *philo, int init)
 	{
 		if (check_fork_avalable(philo))
 		{
-			philo->dead_line = time_since_launch(common)
+			philo->dead_line = time_since_launch(philo)
 				+ common->time_to_die;
 			break ;
 		}
-		if (time_since_launch(common) >= philo->dead_line)
+		if (time_since_launch(philo) >= philo->dead_line)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
@@ -82,13 +82,13 @@ void	is_sleeping(t_philo *philo)
 	mutex_print(philo, "is sleeping");
 	while (get_data_mutex(&common->stop) == 0)
 	{
-		if (time_since_launch(common) >= philo->dead_line)
+		if (time_since_launch(philo) >= philo->dead_line)
 		{
 			set_data_mutex(&common->stop, 1);
 			mutex_print(philo, "died");
 			break ;
 		}
-		if (time_since_launch(common) >= philo->end_of_sleeping)
+		if (time_since_launch(philo) >= philo->end_of_sleeping)
 			return ;
 		usleep(400);
 	}
